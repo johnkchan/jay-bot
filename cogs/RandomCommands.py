@@ -6,11 +6,11 @@ class RandomCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="coinflip", description="jay_bot flips a coin", aliases=["flip", "flipcoin"])
+    @commands.command(name="coinflip", description="Jay Bot flips a coin", aliases=["flip", "flipcoin"])
     async def coinflip(self, ctx):
         await ctx.send(f"{random.choice(['heads', 'tails'])}")
 
-    @commands.command(name="roll", description="jay_bot rolls a dice")
+    @commands.command(name="roll", description="Jay Bot rolls a dice")
     async def roll(self, ctx, amount=1):
         if amount == 1:
             await ctx.send(f"You rolled a {random.randrange(1, 7)}.")
@@ -19,11 +19,11 @@ class RandomCommands(commands.Cog):
             concatenation = ", ".join(map(str, rolls))
             await ctx.send(f"You rolled {concatenation} = {sum(rolls)}.")
 
-    @commands.command(name="percent", description="jay_bot gives you a percent")
+    @commands.command(name="percent", description="Jay Bot gives you a percent")
     async def percent(self, ctx, *, question):
         await ctx.send(f"{random.randrange(0, 101)}%")
 
-    @commands.command(name="8ball", description="jay_bot answers your questions")
+    @commands.command(name="8ball", description="Jay Bot answers your questions")
     async def _8ball(self, ctx, *, question):
         responses = ["As I see it, yes",
                      "Ask again later",
@@ -46,7 +46,7 @@ class RandomCommands(commands.Cog):
                      "You may rely on it"]
         await ctx.send(random.choice(responses))
 
-    @commands.command(name="teams", description="jay_bot randomizes team members")
+    @commands.command(name="teams", description="Jay Bot randomizes team members")
     async def teams(self, ctx, *, members):
         teams = [[], []]
         delimiter = ", "

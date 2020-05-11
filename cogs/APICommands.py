@@ -30,7 +30,7 @@ class APICommands(commands.Cog):
         if data["data"]:
             await ctx.send(data["data"]["images"]["original"]["url"])
 
-    @commands.command(name="weather", description="jay_bot tells you the weather forecast", help="Shows latest weather forecast", aliases=["sunrise", "sunset", "weatherc"])
+    @commands.command(name="weather", description="Jay Bot tells you the weather forecast", help="Shows latest weather forecast", aliases=["sunrise", "sunset", "weatherc"])
     async def weather(self, ctx, *, location="New York City"):
 
         command = ctx.message.content
@@ -86,7 +86,7 @@ class APICommands(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="movie", description="jay_bot tells you movie details", help="Shows movie details")
+    @commands.command(name="movie", description="Jay Bot tells you movie details", help="Shows movie details")
     async def movie(self, ctx, *, movieTitle):
         URL = "http://www.omdbapi.com/?"
 
@@ -128,7 +128,7 @@ class APICommands(commands.Cog):
         else:
             await ctx.send("movie not found >:")
 
-    @commands.command(name="urbandict", description="jay_bot tells you the definition", aliases=["urban"], help="Shows urban dictionary results")
+    @commands.command(name="urbandict", description="Jay Bot tells you the definition", aliases=["urban"], help="Shows urban dictionary results")
     async def urbandict(self, ctx, *, searchTerm):
         URL = "http://api.urbandictionary.com/v0/define?"
         PARAMS = {"term": searchTerm}
@@ -157,14 +157,14 @@ class APICommands(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="funfact", description="jay_bot tells you a fun fact", help="Shows random fun fact")
+    @commands.command(name="funfact", description="Jay Bot tells you a fun fact", help="Shows random fun fact")
     async def funfact(self, ctx):
         URL = "https://uselessfacts.jsph.pl/random.json?language=en"
         r = requests.get(url=URL)
         data = r.json()
         await ctx.send(data["text"])
 
-    @commands.command(name="joke", description="jay_bot tells you a joke", help="Shows random joke")
+    @commands.command(name="joke", description="Jay Bot tells you a joke", help="Shows random joke")
     async def joke(self, ctx):
         URL = "https://official-joke-api.appspot.com/random_joke"
         r = requests.get(url=URL)
@@ -319,7 +319,7 @@ class APICommands(commands.Cog):
     async def reddit(self, ctx):
         reddit = praw.Reddit(client_id=os.environ["REDDIT_CLIENT_ID"],
                              client_secret=os.environ["REDDIT_CLIENT_SECRET"],
-                             user_agent="jay_bot")
+                             user_agent="Jay Bot")
 
         subreddit_dict = {
             "ah": "accountinghumor",

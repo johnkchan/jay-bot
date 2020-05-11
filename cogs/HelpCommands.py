@@ -9,7 +9,7 @@ class HelpCommands(commands.Cog):
     @commands.group(name='help', invoke_without_command=True)
     async def helpcommand(self, ctx):
         embed = discord.Embed(
-            title="jay_bot commands",
+            title="Jay Bot commands",
             description="The prefix of the bot is `.`"
         )
         embed.add_field(

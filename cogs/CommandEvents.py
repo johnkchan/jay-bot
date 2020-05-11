@@ -41,7 +41,7 @@ class CommandEvents(commands.Cog):
 
             await ctx.send(embed=embed)
         else:
-            await ctx.send("no stats available yet ):")
+            await ctx.send("No stats available yet")
 
 
 def setup(bot):
