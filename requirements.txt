@@ -1,0 +1,4 @@
+discord
+googletrans
+requests
+praw
