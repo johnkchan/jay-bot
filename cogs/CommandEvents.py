@@ -35,7 +35,7 @@ class CommandEvents(commands.Cog):
                 description.append(f"\n{key} - {value}")
 
             embed = discord.Embed(
-                title="jay_bot stats",
+                title="Jay Bot stats",
                 description=''.join(description)
             )
 

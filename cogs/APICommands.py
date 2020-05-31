@@ -342,6 +342,49 @@ class APICommands(commands.Cog):
         except Exception as e:
             print(e)
 
+    @commands.command(name="yelp")
+    async def yelp(self, ctx, category, *, location="New York City"):
+        URL = "https://api.yelp.com/v3/businesses/search?"
+        HEADERS = {"Authorization": f"bearer {os.environ['YELP_API_KEY']}"}
+
+        PARAMS = {"terms": "restaurant",
+                  "categories": category,
+                  "location": location,
+                  "limit": 5,
+                  "price": "1, 2"}
+
+        try:
+            r = requests.get(url=URL, params=PARAMS, headers=HEADERS)
+        except Exception as e:
+            print(e)
+
+        topResults = r.json()
+
+        await ctx.send(f"Top {PARAMS['limit']} Results for '{category.title()}' in {location.title()}")
+
+        for business in topResults["businesses"]:
+            embed = discord.Embed(
+                title=business["name"],
+                description=", ".join([i["title"]
+                                       for i in business["categories"]]),
+                url=business["url"]
+            )
+
+            embed.set_thumbnail(url=business["image_url"])
+            embed.add_field(
+                name="Address", value=business["location"]["address1"], inline=True)
+            embed.add_field(
+                name="City", value=business["location"]["city"], inline=True)
+            embed.add_field(
+                name="\uFEFF", value="\uFEFF", inline=True)
+            embed.add_field(name="Price", value=business["price"], inline=True)
+            embed.add_field(
+                name="Rating", value=business["rating"], inline=True)
+            embed.add_field(name="Review Count",
+                            value=business["review_count"], inline=True)
+
+            await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(APICommands(bot))
