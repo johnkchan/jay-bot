@@ -420,32 +420,39 @@ class APICommands(commands.Cog):
         embed.add_field(name="Price", value=business["price"], inline=True)
         embed.add_field(
             name="Rating", value=business["rating"], inline=True)
-        embed.add_field(name="Review Count",
+        embed.add_field(name="Reviews",
                         value=business["review_count"], inline=True)
 
         # Display Transaction Types offered by Business
         embed.add_field(name="Reservation?",
-                        value="Yes" if "restaurant_reservation" in business["transactions"] else "No", inline=True)
+                        value="✅" if "restaurant_reservation" in business["transactions"] else "❌", inline=True)
         embed.add_field(name="Delivery?",
-                        value="Yes" if "delivery" in business["transactions"] else "No", inline=True)
+                        value="✅" if "delivery" in business["transactions"] else "❌", inline=True)
         embed.add_field(name="Pickup?",
-                        value="Yes" if "pickup" in business["transactions"] else "No", inline=True)
+                        value="✅" if "pickup" in business["transactions"] else "❌", inline=True)
 
-        operationHours = {0: ["Monday", "Closed"], 1: ["Tuesday", "Closed"], 2: ["Wednesday", "Closed"],
-                          3: ["Thursday", "Closed"], 4: ["Friday", "Closed"], 5: ["Saturday", "Closed"], 6: ["Sunday", "Closed"]}
+        operationHours = {0: ["Monday", "Closed"],
+                          1: ["Tuesday", "Closed"],
+                          2: ["Wednesday", "Closed"],
+                          3: ["Thursday", "Closed"],
+                          4: ["Friday", "Closed"],
+                          5: ["Saturday", "Closed"],
+                          6: ["Sunday", "Closed"]}
 
         # Update operationHours dictionary with startTime and endTime
         for weekday in business["hours"][0]["open"]:
             # Convert 24 Hour Format into 12 Hour Format
-            startTime = datetime.strptime(
+            openingHour = datetime.strptime(
                 weekday['start'], "%H%M").strftime("%I:%M %p")
-            endTime = datetime.strptime(
+            closingHour = datetime.strptime(
                 weekday['end'], "%H%M").strftime("%I:%M %p")
             operationHours[weekday["day"]
-                           ][1] = f"{startTime} - {endTime}"
+                           ][1] = f"{openingHour} - {closingHour}"
 
         embed.add_field(name="Hours", value="\n".join(
             [f"{value[0]}: {value[1]}" for key, value in operationHours.items()]), inline=False)
+        embed.add_field(name="Is Open Now?",
+                        value="✅" if business["hours"][0]["is_open_now"] else "❌", inline=False)
 
         # Use second available photo to avoid duplicating thumnbnail image
         if business["photos"]:
