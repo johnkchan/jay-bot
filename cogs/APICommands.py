@@ -399,6 +399,12 @@ class APICommands(commands.Cog):
 
         business = r.json()
 
+        try:
+            if business["error"]:
+                return await ctx.send(business["error"]["description"])
+        except:
+            pass
+
         embed = discord.Embed(
             title=business["name"],
             description=", ".join([i["title"]
