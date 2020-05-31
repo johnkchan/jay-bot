@@ -345,7 +345,7 @@ class APICommands(commands.Cog):
     @commands.command(name="yelp")
     async def yelp(self, ctx, category, *, location="New York City"):
         URL = "https://api.yelp.com/v3/businesses/search?"
-        HEADERS = {"Authorization": f"bearer {os.environ['YELP_API_KEY']}"}
+        HEADERS = {"Authorization": f"bearer {os.getenv('YELP_API_KEY')}"}
 
         PARAMS = {"terms": "restaurant",
                   "categories": category,
@@ -376,14 +376,85 @@ class APICommands(commands.Cog):
             embed.add_field(
                 name="City", value=business["location"]["city"], inline=True)
             embed.add_field(
-                name="\uFEFF", value="\uFEFF", inline=True)
+                name="Zip Code", value=business["location"]["zip_code"], inline=True)
             embed.add_field(name="Price", value=business["price"], inline=True)
             embed.add_field(
                 name="Rating", value=business["rating"], inline=True)
             embed.add_field(name="Review Count",
                             value=business["review_count"], inline=True)
+            embed.set_footer(
+                text=f"For more info, run .yelpsearch {business['id']}")
 
             await ctx.send(embed=embed)
+
+    @commands.command(name="yelpsearch")
+    async def yelpsearch(self, ctx, businessID):
+        URL = f"https://api.yelp.com/v3/businesses/{businessID}"
+        HEADERS = {"Authorization": f"bearer {os.getenv('YELP_API_KEY')}"}
+
+        try:
+            r = requests.get(url=URL, headers=HEADERS)
+        except Exception as e:
+            print(e)
+
+        business = r.json()
+
+        embed = discord.Embed(
+            title=business["name"],
+            description=", ".join([i["title"]
+                                   for i in business["categories"]]),
+            url=business["url"]
+        )
+
+        embed.set_thumbnail(url=business["image_url"])
+
+        # Display Location Details of Business
+        embed.add_field(
+            name="Address", value=business["location"]["address1"], inline=True)
+        embed.add_field(
+            name="City", value=business["location"]["city"], inline=True)
+        embed.add_field(
+            name="Zip Code", value=business["location"]["zip_code"], inline=True)
+
+        # Display Price a& Rating of Business
+        embed.add_field(name="Price", value=business["price"], inline=True)
+        embed.add_field(
+            name="Rating", value=business["rating"], inline=True)
+        embed.add_field(name="Review Count",
+                        value=business["review_count"], inline=True)
+
+        # Display Transaction Types offered by Business
+        embed.add_field(name="Reservation?",
+                        value="Yes" if "restaurant_reservation" in business["transactions"] else "No", inline=True)
+        embed.add_field(name="Delivery?",
+                        value="Yes" if "delivery" in business["transactions"] else "No", inline=True)
+        embed.add_field(name="Pickup?",
+                        value="Yes" if "pickup" in business["transactions"] else "No", inline=True)
+
+        operationHours = {0: ["Monday", "Closed"], 1: ["Tuesday", "Closed"], 2: ["Wednesday", "Closed"],
+                          3: ["Thursday", "Closed"], 4: ["Friday", "Closed"], 5: ["Saturday", "Closed"], 6: ["Sunday", "Closed"]}
+
+        # Update operationHours dictionary with startTime and endTime
+        for weekday in business["hours"][0]["open"]:
+            # Convert 24 Hour Format into 12 Hour Format
+            startTime = datetime.strptime(
+                weekday['start'], "%H%M").strftime("%I:%M %p")
+            endTime = datetime.strptime(
+                weekday['end'], "%H%M").strftime("%I:%M %p")
+            operationHours[weekday["day"]
+                           ][1] = f"{startTime} - {endTime}"
+
+        embed.add_field(name="Hours", value="\n".join(
+            [f"{value[0]}: {value[1]}" for key, value in operationHours.items()]), inline=False)
+
+        # Use second available photo to avoid duplicating thumnbnail image
+        if business["photos"]:
+            try:
+                embed.set_image(url=business["photos"][1])
+            except:
+                embed.set_image(url=business["photos"][0])
+
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
