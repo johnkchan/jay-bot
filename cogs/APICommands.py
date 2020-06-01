@@ -15,9 +15,8 @@ class APICommands(commands.Cog):
     @commands.command(name="gif", description="It's so fluffy!")
     async def gif(self, ctx, *, searchTerm):
         URL = "http://api.giphy.com/v1/gifs/random?"
-        api_key = os.environ["GIPHY_API_KEY"]
 
-        PARAMS = {"api_key": api_key,
+        PARAMS = {"api_key": os.environ["GIPHY_API_KEY"],
                   "tag": searchTerm}
 
         try:
@@ -28,7 +27,7 @@ class APICommands(commands.Cog):
         data = r.json()
 
         if data["data"]:
-            await ctx.send(data["data"]["images"]["original"]["url"])
+            return await ctx.send(data["data"]["images"]["original"]["url"])
 
     @commands.command(name="weather", description="Jay Bot tells you the weather forecast", help="Shows latest weather forecast", aliases=["sunrise", "sunset", "weatherc"])
     async def weather(self, ctx, *, location="New York City"):
@@ -126,7 +125,7 @@ class APICommands(commands.Cog):
 
             await ctx.send(embed=embed)
         else:
-            await ctx.send("movie not found >:")
+            await ctx.send("Movie title not found")
 
     @commands.command(name="urbandict", description="Jay Bot tells you the definition", aliases=["urban"], help="Shows urban dictionary results")
     async def urbandict(self, ctx, *, searchTerm):
