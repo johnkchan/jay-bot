@@ -399,11 +399,8 @@ class APICommands(commands.Cog):
 
         business = r.json()
 
-        try:
-            if business["error"]:
-                return await ctx.send(business["error"]["description"])
-        except:
-            pass
+        if r.status_code == 404:
+            return await ctx.send(business["error"]["description"])
 
         embed = discord.Embed(
             title=business["name"],
