@@ -498,7 +498,7 @@ class APICommands(commands.Cog):
                 name="Example", value=data["definitions"][i]["example"], inline=False)
 
             if data["definitions"][i]["image_url"]:
-                embed.set_image(url=data["definitions"][i]["image_url"])
+                embed.set_thumbnail(url=data["definitions"][i]["image_url"])
 
             await ctx.send(embed=embed)
 
