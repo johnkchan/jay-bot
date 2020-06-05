@@ -492,13 +492,15 @@ class APICommands(commands.Cog):
                 description=data["definitions"][i]['type'].title()
             )
 
-            if data["definitions"][i]["image_url"]:
-                embed.set_image(url=data["definitions"][i]["image_url"])
-
             embed.add_field(
                 name="Definition", value=data["definitions"][i]["definition"], inline=False)
-            embed.add_field(
-                name="Example", value=data["definitions"][i]["example"], inline=False)
+
+            if data["definitions"][i]["example"]:
+                embed.add_field(
+                    name="Example", value=data["definitions"][i]["example"], inline=False)
+
+            if data["definitions"][i]["image_url"]:
+                embed.set_thumbnail(url=data["definitions"][i]["image_url"])
 
             await ctx.send(embed=embed)
 
