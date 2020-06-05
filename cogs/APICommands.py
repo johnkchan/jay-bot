@@ -465,6 +465,43 @@ class APICommands(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(name="dictionary", aliases=["dict"])
+    async def reddit(self, ctx, word):
+        URL = f"https://owlbot.info/api/v4/dictionary/{word}"
+
+        HEADERS = {"Authorization": f"Token {os.getenv('OWLBOT_API_KEY')}"}
+
+        try:
+            r = requests.get(url=URL, headers=HEADERS)
+        except Exception as e:
+            print(e)
+
+        data = r.json()
+
+        if r.status_code == 404:
+            return await ctx.send("No definition found.")
+
+        # Take Top 3 Definitions
+        length = 3 if len(data['definitions']) > 3 else len(
+            data['definitions'])
+
+        for i in range(length):
+
+            embed = discord.Embed(
+                title=data["word"].title(),
+                description=data["definitions"][i]['type'].title()
+            )
+
+            embed.add_field(
+                name="Definition", value=data["definitions"][i]["definition"], inline=False)
+            embed.add_field(
+                name="Example", value=data["definitions"][i]["example"], inline=False)
+
+            if data["definitions"][i]["image_url"]:
+                embed.set_image(url=data["definitions"][i]["image_url"])
+
+            await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(APICommands(bot))
