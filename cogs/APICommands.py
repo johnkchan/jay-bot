@@ -493,7 +493,7 @@ class APICommands(commands.Cog):
             )
 
             if data["definitions"][i]["image_url"]:
-                embed.set_thumbnail(url=data["definitions"][i]["image_url"])
+                embed.set_image(url=data["definitions"][i]["image_url"])
 
             embed.add_field(
                 name="Definition", value=data["definitions"][i]["definition"], inline=False)
