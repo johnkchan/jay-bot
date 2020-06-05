@@ -13,7 +13,7 @@ class HelpCommands(commands.Cog):
             description="The prefix of the bot is `.`"
         )
         embed.add_field(
-            name='API', value="`ah` `dank` `dh` `funfact` `gif` `joke` `movie` `ph` `translate` `urbandict` `weather`", inline=False)
+            name='API', value="`ah` `dank` `dh` `dictionary` `funfact` `gif` `joke` `movie` `ph` `translate` `urbandict` `yelp` `weather`", inline=False)
         embed.add_field(
             name='General', value="`ping` `poll` `stats`", inline=False)
         embed.add_field(
