@@ -8,20 +8,20 @@ class RandomCommands(commands.Cog):
 
     @commands.command(name="coinflip", description="Jay Bot flips a coin", aliases=["flip", "flipcoin"])
     async def coinflip(self, ctx):
-        await ctx.send(f"{random.choice(['heads', 'tails'])}")
+        return await ctx.send(f"{random.choice(['heads', 'tails'])}")
 
     @commands.command(name="roll", description="Jay Bot rolls a dice")
     async def roll(self, ctx, amount=1):
         if amount == 1:
-            await ctx.send(f"You rolled a {random.randrange(1, 7)}.")
-        elif amount > 1:
-            rolls = [random.randrange(1, 7) for _ in range(amount)]
-            concatenation = ", ".join(map(str, rolls))
-            await ctx.send(f"You rolled {concatenation} = {sum(rolls)}.")
+            return await ctx.send(f"You rolled a {random.randrange(1, 7)}.")
+
+        rolls = [random.randrange(1, 7) for _ in range(amount)]
+        concatenation = ", ".join(map(str, rolls))
+        return await ctx.send(f"You rolled {concatenation} = {sum(rolls)}.")
 
     @commands.command(name="percent", description="Jay Bot gives you a percent")
     async def percent(self, ctx, *, question):
-        await ctx.send(f"{random.randrange(0, 101)}%")
+        return await ctx.send(f"{random.randrange(0, 101)}%")
 
     @commands.command(name="8ball", description="Jay Bot answers your questions")
     async def _8ball(self, ctx, *, question):
@@ -44,15 +44,15 @@ class RandomCommands(commands.Cog):
                      "Yes",
                      "Yes - definitely",
                      "You may rely on it"]
-        await ctx.send(random.choice(responses))
+        return await ctx.send(random.choice(responses))
 
     @commands.command(name="teams", description="Jay Bot randomizes team members")
     async def teams(self, ctx, *, members):
         teams = [[], []]
         delimiter = ", "
         members = members.split(delimiter)
-        i = 0
 
+        i = 0
         while members:
             randInt = random.randrange(0, len(members))
             member = members.pop(randInt)

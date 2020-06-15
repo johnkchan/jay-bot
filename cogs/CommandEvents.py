@@ -15,33 +15,32 @@ class CommandEvents(commands.Cog):
     @commands.Cog.listener()
     async def on_command(self, ctx):
         if ctx.command is not None and ctx.command.name not in ["stats", "help"]:
-            if ctx.command.name in commands_tally:
-                commands_tally[ctx.command.name] += 1
-            else:
-                commands_tally[ctx.command.name] = 1
+            if ctx.command.name not in commands_tally:
+                commands_tally[ctx.command.name] = 0
+            commands_tally[ctx.command.name] += 1
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         # if isinstance(error, commands.MissingRequiredArgument):
         #     await ctx.send('Please pass in all required arguments.')
         if isinstance(error, commands.CommandNotFound):
-            await ctx.send("Invalid Command")
+            return await ctx.send("Invalid Command")
 
     @commands.command(name="stats")
     async def stats(self, ctx):
-        if commands_tally:
-            description = []
-            for key, value in sorted(commands_tally.items(), key=lambda kv: kv[1], reverse=True):
-                description.append(f"\n{key} - {value}")
+        if not commands_tally:
+            return await ctx.send("No stats available yet")
 
-            embed = discord.Embed(
-                title="Jay Bot stats",
-                description=''.join(description)
-            )
+        description = []
+        for key, value in sorted(commands_tally.items(), key=lambda val: val[1], reverse=True):
+            description.append(f"\n{key} - {value}")
 
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send("No stats available yet")
+        embed = discord.Embed(
+            title="Jay Bot stats",
+            description=''.join(description)
+        )
+
+        return await ctx.send(embed=embed)
 
 
 def setup(bot):

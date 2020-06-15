@@ -10,13 +10,13 @@ class AdminEvents(commands.Cog):
     async def on_member_join(self, member):
         channel = discord.utils.get(member.guild.text_channels, name="general")
         if channel:
-            await channel.send(f"Hi <@!{member.id}>")
+            return await channel.send(f"Hi <@!{member.id}>")
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
         channel = discord.utils.get(member.guild.text_channels, name="general")
         if channel:
-            await channel.send(f"Good bye <@!{member.id}>")
+            return await channel.send(f"Good bye <@!{member.id}>")
 
 
 def setup(bot):
