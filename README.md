@@ -24,6 +24,7 @@ touch .env
 - [Official-Joke-API](https://official-joke-api.appspot.com/random_joke)
 - [Open Movie Database](http://www.omdbapi.com/)
 - [Open Weather Map](https://openweathermap.org/api)
+- [OwlBot Dictionary API](https://owlbot.info/)
 - [Reddit PRAW](https://praw.readthedocs.io/en/latest/)
 - [UrbanDictionary](http://api.urbandictionary.com/v0/define?)
 - [Useless Facts](https://uselessfacts.jsph.pl/random.json?language=en)
@@ -35,9 +36,9 @@ touch .env
 python bot.py
 ```
 
-## Discord Command Help
+## Discord Commands
 
-List of all Jay Bot Commands can be found through the .help command on Discord platform
+A list of all Jay Bot Commands can be found through the .help command on the Discord platform
 
 ```bash
 .help
