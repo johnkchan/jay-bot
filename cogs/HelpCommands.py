@@ -23,7 +23,7 @@ class HelpCommands(commands.Cog):
 
         embed.set_footer(text="for more information try .help (command)")
 
-        await ctx.send(embed=embed)
+        return await ctx.send(embed=embed)
 
 
 def setup(bot):

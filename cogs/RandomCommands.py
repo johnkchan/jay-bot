@@ -60,7 +60,7 @@ class RandomCommands(commands.Cog):
             i += 1
             i %= 2
 
-        await ctx.send(f"Team A: {delimiter.join(teams[0])}\nTeam B: {delimiter.join(teams[1])}")
+        return await ctx.send(f"Team A: {delimiter.join(teams[0])}\nTeam B: {delimiter.join(teams[1])}")
 
     @commands.command(name="madgab", aliases=["mg"])
     async def madgab(self, ctx):
@@ -723,6 +723,7 @@ class RandomCommands(commands.Cog):
         randomPromptAnswer = prompts[randomPrompt]
         await ctx.send(randomPrompt.title())
         await ctx.send(f"answer: ||{randomPromptAnswer}||")
+        return
 
 
 def setup(bot):
