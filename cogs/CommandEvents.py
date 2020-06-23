@@ -23,6 +23,9 @@ class CommandEvents(commands.Cog):
     async def on_command_error(self, ctx, error):
         # if isinstance(error, commands.MissingRequiredArgument):
         #     await ctx.send('Please pass in all required arguments.')
+        if ctx[:2] == "..":
+            return
+
         if isinstance(error, commands.CommandNotFound):
             return await ctx.send("Invalid Command")
 
