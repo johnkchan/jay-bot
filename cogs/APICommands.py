@@ -35,9 +35,9 @@ class APICommands(commands.Cog):
         command = ctx.message.content
 
         #  Should return temperature in Celsius if user specifies weatherc command
-        units = "metric" if command == ".weatherc" else "imperial"
-        scale = "C" if command == ".weatherc" else "F"
-        speed = "mps" if command == ".weatherc" else "mph"
+        units = "metric" ".weatherc" in command else "imperial"
+        scale = "C" if ".weatherc" in command else "F"
+        speed = "mps" if ".weatherc" in command else "mph"
 
         URL = "http://api.openweathermap.org/data/2.5/weather?"
 
