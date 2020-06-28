@@ -521,6 +521,8 @@ class APICommands(commands.Cog):
             )
 
             embed.add_field(
+                name="Author", value=f"[{submission.author.name}](https://www.reddit.com/user/{submission.author.name})", inline=True)
+            embed.add_field(
                 name="👍", value=submission.score, inline=True)
 
             embed.set_image(url=submission.url)
