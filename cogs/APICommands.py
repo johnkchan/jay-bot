@@ -29,18 +29,19 @@ class APICommands(commands.Cog):
         if data["data"]:
             return await ctx.send(data["data"]["images"]["original"]["url"])
 
-    @commands.command(name="weather", description="Jay Bot tells you the weather forecast", help="Shows latest weather forecast", aliases=["sunrise", "sunset", "weatherc"])
+    @commands.command(name="weather", description="Jay Bot tells you the weather forecast", help="Shows latest weather forecast", aliases=["weatherc"])
     async def weather(self, ctx, *, location="New York City"):
 
         command = ctx.message.content
+
+        #  Should return temperature in Celsius if user specifies weatherc command
         units = "metric" if command == ".weatherc" else "imperial"
-        measurement = "C" if command == ".weatherc" else "F"
+        scale = "C" if command == ".weatherc" else "F"
         speed = "mps" if command == ".weatherc" else "mph"
 
         URL = "http://api.openweathermap.org/data/2.5/weather?"
 
-        api_key = os.getenv('OPENWEATHER_API_KEY')
-        PARAMS = {"appid": api_key,
+        PARAMS = {"appid": os.getenv('OPENWEATHER_API_KEY'),
                   "q": location,
                   "units": units}
 
@@ -48,12 +49,9 @@ class APICommands(commands.Cog):
             r = requests.get(url=URL, params=PARAMS)
         except Exception as e:
             print(e)
+            return
 
         data = r.json()
-
-        # Convert Unix time to Readable Date Format
-        sunrise = datetime.fromtimestamp(data["sys"]["sunrise"])
-        sunset = datetime.fromtimestamp(data["sys"]["sunset"])
 
         # Convert Latitude & Longitude to Float
         latitude = float(data['coord']['lat'])
@@ -68,9 +66,9 @@ class APICommands(commands.Cog):
             name="Weather", value=data["weather"][0]["description"].title(), inline=False)
 
         embed.add_field(
-            name="Temp", value=f"{int(data['main']['temp'])}°{measurement}", inline=True)
+            name="Temp", value=f"{int(data['main']['temp'])}°{scale}", inline=True)
         embed.add_field(
-            name="Feels Like", value=f"{int(data['main']['feels_like'])}°{measurement}", inline=True)
+            name="Feels Like", value=f"{int(data['main']['feels_like'])}°{scale}", inline=True)
         embed.add_field(
             name="\uFEFF", value="\uFEFF", inline=True)
 
@@ -81,6 +79,10 @@ class APICommands(commands.Cog):
         embed.add_field(
             name="\uFEFF", value="\uFEFF", inline=True)
 
+        # Convert Unix time to Readable Date Format
+        sunrise = datetime.fromtimestamp(data["sys"]["sunrise"])
+        sunset = datetime.fromtimestamp(data["sys"]["sunset"])
+
         embed.add_field(
             name="Sunrise", value=sunrise.strftime('%I:%M %p'), inline=True)
         embed.add_field(
@@ -88,7 +90,7 @@ class APICommands(commands.Cog):
         embed.add_field(
             name="\uFEFF", value="\uFEFF", inline=True)
 
-        await ctx.send(embed=embed)
+        return await ctx.send(embed=embed)
 
     @commands.command(name="movie", description="Jay Bot tells you movie details", help="Shows movie details")
     async def movie(self, ctx, *, movieTitle):
