@@ -14,14 +14,14 @@ class RandomCommands(commands.Cog):
     @commands.command(name="roll", description="Jay Bot rolls a dice")
     async def roll(self, ctx, amount=1):
         if amount == 1:
-            return await ctx.send(f"You rolled a {random.randrange(1, 7)}.")
+            return await ctx.send(f"You rolled a {random.randrange(1, 7)}")
 
         rolls = [random.randrange(1, 7) for _ in range(amount)]
         concatenation = ", ".join(map(str, rolls))
         return await ctx.send(f"You rolled {concatenation} = {sum(rolls)}.")
 
     @commands.command(name="percent", description="Jay Bot gives you a percent")
-    async def percent(self, ctx, *, question):
+    async def percent(self, ctx, *, question=""):
         return await ctx.send(f"{random.randrange(0, 101)}%")
 
     @commands.command(name="8ball", description="Jay Bot answers your questions")
