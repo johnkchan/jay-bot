@@ -16,7 +16,7 @@ class MiscCommands(commands.Cog):
         return await ctx.send(content=text, tts=True)
 
     @commands.command(name="watch", description="jay_bot tells you to watch shows")
-    async def watch(self, ctx, show: str, *participants: str):
+    async def watch(self, ctx, show: str = "", *, participants: str = ""):
         if show:
             show += " "
 
