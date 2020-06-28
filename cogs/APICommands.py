@@ -483,11 +483,9 @@ class APICommands(commands.Cog):
 
         try:
             submission = reddit.subreddit(selection).random()
-            print(dir(submission))
             embed = discord.Embed(
                 title=submission.title,
                 description=submission.selftext,
-                colour=discord.Colour.blue(),
                 url=submission.shortlink
             )
 
@@ -512,17 +510,17 @@ class APICommands(commands.Cog):
             return await ctx.send("Please provide word to be defined")
 
         URL = f"https://owlbot.info/api/v4/dictionary/{word}"
-        HEADERS = {"Authorization": f"Token {os.environ('OWLBOT_API_KEY')}"}
+        HEADERS = {"Authorization": f"Token {os.getenv('OWLBOT_API_KEY')}"}
 
         try:
             r = requests.get(url=URL, headers=HEADERS)
         except Exception as e:
             print(e)
 
-        data = r.json()
-
         if r.status_code == 404:
             return await ctx.send("No definition found.")
+
+        data = r.json()
 
         # Take Top 3 Definitions
         length = 3 if len(data['definitions']) > 3 else len(
