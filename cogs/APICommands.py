@@ -360,6 +360,7 @@ class APICommands(commands.Cog):
                 title=business["name"],
                 description=", ".join([i["title"]
                                        for i in business["categories"]]),
+                colour=discord.Colour.blue(),
                 url=business["url"]
             )
 
@@ -399,6 +400,7 @@ class APICommands(commands.Cog):
             title=business["name"],
             description=", ".join([i["title"]
                                    for i in business["categories"]]),
+            colour=discord.Colour.blue(),
             url=business["url"]
         )
 
@@ -484,8 +486,9 @@ class APICommands(commands.Cog):
             print(dir(submission))
             embed = discord.Embed(
                 title=submission.title,
-                url=submission.shortlink,
-                description=submission.selftext
+                description=submission.selftext,
+                colour=discord.Colour.blue(),
+                url=submission.shortlink
             )
 
             embed.add_field(
@@ -504,10 +507,12 @@ class APICommands(commands.Cog):
             return await ctx.send("Subreddit not found")
 
     @commands.command(name="dictionary", aliases=["dict"])
-    async def reddit(self, ctx, word: str):
-        URL = f"https://owlbot.info/api/v4/dictionary/{word}"
+    async def dictionary(self, ctx, word: str):
+        if not word:
+            return await ctx.send("Please provide word to be defined")
 
-        HEADERS = {"Authorization": f"Token {os.getenv('OWLBOT_API_KEY')}"}
+        URL = f"https://owlbot.info/api/v4/dictionary/{word}"
+        HEADERS = {"Authorization": f"Token {os.environ('OWLBOT_API_KEY')}"}
 
         try:
             r = requests.get(url=URL, headers=HEADERS)
