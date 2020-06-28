@@ -365,17 +365,23 @@ class APICommands(commands.Cog):
             )
 
             embed.set_thumbnail(url=business["image_url"])
+
+            address = business["location"]["address1"]
+            city = business["location"]["city"]
+            zipcode = business["location"]["zip_code"]
+
+            full_address = f"{address}, {city} {zipcode}"
+            address_search_string = "+".join(full_address.split(" "))
+
             embed.add_field(
-                name="Address", value=business["location"]["address1"], inline=True)
-            embed.add_field(
-                name="City", value=business["location"]["city"], inline=True)
-            embed.add_field(
-                name="Zip Code", value=business["location"]["zip_code"], inline=True)
+                name="Address", value=f"[{full_address}](https://www.google.com/maps/search/{address_search_string})", inline=False)
+
             embed.add_field(name="Price", value=business["price"], inline=True)
             embed.add_field(
                 name="Rating", value=business["rating"], inline=True)
             embed.add_field(name="Review Count",
                             value=business["review_count"], inline=True)
+
             embed.set_footer(
                 text=f"For more info, run .yelpsearch {business['id']}")
 
@@ -407,12 +413,15 @@ class APICommands(commands.Cog):
         embed.set_thumbnail(url=business["image_url"])
 
         # Display Location Details of Business
+        address = business["location"]["address1"]
+        city = business["location"]["city"]
+        zipcode = business["location"]["zip_code"]
+
+        full_address = f"{address}, {city} {zipcode}"
+        address_search_string = "+".join(full_address.split(" "))
+
         embed.add_field(
-            name="Address", value=business["location"]["address1"], inline=True)
-        embed.add_field(
-            name="City", value=business["location"]["city"], inline=True)
-        embed.add_field(
-            name="Zip Code", value=business["location"]["zip_code"], inline=True)
+            name="Address", value=f"[{full_address}](https://www.google.com/maps/search/{address_search_string})", inline=False)
 
         # Display Price a& Rating of Business
         embed.add_field(name="Price", value=business["price"], inline=True)
