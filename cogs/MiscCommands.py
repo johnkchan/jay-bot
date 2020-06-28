@@ -16,7 +16,7 @@ class MiscCommands(commands.Cog):
         return await ctx.send(content=text, tts=True)
 
     @commands.command(name="watch", description="jay_bot tells you to watch shows")
-    async def watch(self, ctx, show: str = "", *participants: str):
+    async def watch(self, ctx, show: str, *participants: str):
         if show:
             show += " "
 
@@ -36,23 +36,23 @@ class MiscCommands(commands.Cog):
 
         watchers = ",".join(watchers)
 
+        if ctx.author.voice and ctx.author.voice.channel:
+            # guild = ctx.message.guild
+            # author = ctx.message.author
+            channel = ctx.author.voice.channel
+            link = await channel.create_invite(max_age=300)
+
+            embed = discord.Embed(
+                title="Watch Notification",
+                description=f"{watchers} watch {show}with me on #{channel}"
+            )
+
+            await ctx.send(embed=embed)
+            await ctx.send(link)
+            return
+
         # If user is not in voice channel, notify user and end command
-        if not ctx.author.voice and not ctx.author.voice.channel:
-            return await ctx.send("you are not connected to a voice channel")
-
-        # guild = ctx.message.guild
-        # author = ctx.message.author
-        channel = ctx.author.voice.channel
-        link = await channel.create_invite(max_age=300)
-
-        embed = discord.Embed(
-            title="Watch Notification",
-            description=f"{watchers} watch {show}with me on #{channel}"
-        )
-
-        await ctx.send(embed=embed)
-        await ctx.send(link)
-        return
+        return await ctx.send("you are not connected to a voice channel")
 
 
 def setup(bot):

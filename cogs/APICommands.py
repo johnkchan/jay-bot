@@ -13,7 +13,7 @@ class APICommands(commands.Cog):
         self.bot = bot
 
     @commands.command(name="gif", description="It's so fluffy!")
-    async def gif(self, ctx, *, searchTerm):
+    async def gif(self, ctx, *, searchTerm: str):
         URL = "http://api.giphy.com/v1/gifs/random?"
 
         PARAMS = {"api_key": os.environ["GIPHY_API_KEY"],
@@ -31,7 +31,7 @@ class APICommands(commands.Cog):
             return await ctx.send(data["data"]["images"]["original"]["url"])
 
     @commands.command(name="weather", description="Jay Bot tells you the weather forecast", help="Shows latest weather forecast", aliases=["weatherc"])
-    async def weather(self, ctx, *, location="New York City"):
+    async def weather(self, ctx, *, location: str = "New York City"):
 
         command = ctx.message.content
 
@@ -94,7 +94,7 @@ class APICommands(commands.Cog):
         return await ctx.send(embed=embed)
 
     @commands.command(name="movie", description="Jay Bot tells you movie details", help="Shows movie details")
-    async def movie(self, ctx, *, movieTitle):
+    async def movie(self, ctx, *, movieTitle: str):
         URL = "http://www.omdbapi.com/?"
 
         PARAMS = {"apikey": os.environ["OMDB_API_KEY"],
@@ -137,7 +137,7 @@ class APICommands(commands.Cog):
         return await ctx.send("Movie title not found")
 
     @commands.command(name="urbandict", description="Jay Bot tells you the definition", aliases=["urban"], help="Shows urban dictionary results")
-    async def urbandict(self, ctx, *, searchTerm):
+    async def urbandict(self, ctx, *, searchTerm: str):
         URL = "http://api.urbandictionary.com/v0/define?"
         PARAMS = {"term": searchTerm}
 
@@ -180,7 +180,7 @@ class APICommands(commands.Cog):
         return await ctx.send(f"{data['setup']}\n> {data['punchline']}")
 
     @commands.command(name="translate", help="Shows translation")
-    async def translate(self, ctx, *, text):
+    async def translate(self, ctx, *, text: str):
 
         LANGUAGES = {
             'af': 'afrikaans',
