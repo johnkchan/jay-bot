@@ -55,36 +55,38 @@ class APICommands(commands.Cog):
         sunrise = datetime.fromtimestamp(data["sys"]["sunrise"])
         sunset = datetime.fromtimestamp(data["sys"]["sunset"])
 
+        # Convert Latitude & Longitude to Float
+        latitude = float(data['coord']['lat'])
+        longitude = float(data['coord']['lon'])
+
         embed = discord.Embed(
-            title=data["name"]
+            title=data["name"],
+            description=f"[{latitude}{'N' if latitude > 0 else 'S'},{longitude}{'W' if latitude < 0 else 'E'}](https://www.google.com/maps/search/{latitude},{longitude}/)"
         )
 
         embed.add_field(
             name="Weather", value=data["weather"][0]["description"].title(), inline=False)
+
         embed.add_field(
             name="Temp", value=f"{int(data['main']['temp'])}°{measurement}", inline=True)
         embed.add_field(
             name="Feels Like", value=f"{int(data['main']['feels_like'])}°{measurement}", inline=True)
         embed.add_field(
             name="\uFEFF", value="\uFEFF", inline=True)
+
         embed.add_field(
             name="Humidity", value=f"{int(data['main']['humidity'])}%", inline=True)
         embed.add_field(
             name="Wind Speed", value=f"{data['wind']['speed']}{speed}", inline=True)
         embed.add_field(
             name="\uFEFF", value="\uFEFF", inline=True)
+
         embed.add_field(
             name="Sunrise", value=sunrise.strftime('%I:%M %p'), inline=True)
         embed.add_field(
             name="Sunset", value=sunset.strftime('%I:%M %p'), inline=True)
         embed.add_field(
             name="\uFEFF", value="\uFEFF", inline=True)
-
-        latitude = float(data['coord']['lat'])
-        longitude = float(data['coord']['lon'])
-
-        embed.set_footer(
-            text=f"lat: {latitude}{'N' if latitude > 0 else 'S'} | long: {longitude}{'W' if latitude < 0 else 'E'}")
 
         await ctx.send(embed=embed)
 
