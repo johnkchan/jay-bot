@@ -329,6 +329,9 @@ class APICommands(commands.Cog):
             embed.add_field(
                 name="Confidence", value=f"{confidence}", inline=True)
 
+            embed.set_thumbnail(
+                url="https://cdn0.iconfinder.com/data/icons/tuts/256/google_translate.png")
+
             return await ctx.send(embed=embed)
 
     @commands.command(name="yelp")
@@ -456,45 +459,6 @@ class APICommands(commands.Cog):
 
         return await ctx.send(embed=embed)
 
-    @commands.command(name="dictionary", aliases=["dict"])
-    async def reddit(self, ctx, word):
-        URL = f"https://owlbot.info/api/v4/dictionary/{word}"
-
-        HEADERS = {"Authorization": f"Token {os.getenv('OWLBOT_API_KEY')}"}
-
-        try:
-            r = requests.get(url=URL, headers=HEADERS)
-        except Exception as e:
-            print(e)
-
-        data = r.json()
-
-        if r.status_code == 404:
-            return await ctx.send("No definition found.")
-
-        # Take Top 3 Definitions
-        length = 3 if len(data['definitions']) > 3 else len(
-            data['definitions'])
-
-        for i in range(length):
-
-            embed = discord.Embed(
-                title=data["word"].title(),
-                description=data["definitions"][i]['type'].title()
-            )
-
-            embed.add_field(
-                name="Definition", value=data["definitions"][i]["definition"], inline=False)
-
-            if data["definitions"][i]["example"]:
-                embed.add_field(
-                    name="Example", value=data["definitions"][i]["example"], inline=False)
-
-            if data["definitions"][i]["image_url"]:
-                embed.set_thumbnail(url=data["definitions"][i]["image_url"])
-
-            await ctx.send(embed=embed)
-
     @commands.command(name="reddit", aliases=["ah", "dh", "ph", "dank"])
     async def reddit(self, ctx, subreddit: str = ""):
         reddit = praw.Reddit(client_id=os.environ["REDDIT_CLIENT_ID"],
@@ -538,6 +502,45 @@ class APICommands(commands.Cog):
         except Exception as e:
             print(e)
             return await ctx.send("Subreddit not found")
+
+    @commands.command(name="dictionary", aliases=["dict"])
+    async def reddit(self, ctx, word: str):
+        URL = f"https://owlbot.info/api/v4/dictionary/{word}"
+
+        HEADERS = {"Authorization": f"Token {os.getenv('OWLBOT_API_KEY')}"}
+
+        try:
+            r = requests.get(url=URL, headers=HEADERS)
+        except Exception as e:
+            print(e)
+
+        data = r.json()
+
+        if r.status_code == 404:
+            return await ctx.send("No definition found.")
+
+        # Take Top 3 Definitions
+        length = 3 if len(data['definitions']) > 3 else len(
+            data['definitions'])
+
+        for i in range(length):
+
+            embed = discord.Embed(
+                title=data["word"].title(),
+                description=data["definitions"][i]['type'].title()
+            )
+
+            embed.add_field(
+                name="Definition", value=data["definitions"][i]["definition"], inline=False)
+
+            if data["definitions"][i]["example"]:
+                embed.add_field(
+                    name="Example", value=data["definitions"][i]["example"], inline=False)
+
+            if data["definitions"][i]["image_url"]:
+                embed.set_thumbnail(url=data["definitions"][i]["image_url"])
+
+            await ctx.send(embed=embed)
 
 
 def setup(bot):
