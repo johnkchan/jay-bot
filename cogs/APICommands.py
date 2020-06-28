@@ -327,34 +327,6 @@ class APICommands(commands.Cog):
 
             return await ctx.send(embed=embed)
 
-    @commands.command(name="reddit", aliases=["ah", "dh", "ph", "dank"])
-    async def reddit(self, ctx):
-        reddit = praw.Reddit(client_id=os.environ["REDDIT_CLIENT_ID"],
-                             client_secret=os.environ["REDDIT_CLIENT_SECRET"],
-                             user_agent="Jay Bot")
-
-        subreddit_dict = {
-            "ah": "accountinghumor",
-            "dh": "designershumor",
-            "ph": "programmerhumor",
-            "dank": "memes"
-        }
-
-        command = ctx.message.content[1:]
-        selection = subreddit_dict[command]
-
-        try:
-            submission = reddit.subreddit(selection).random()
-            embed = discord.Embed(
-                title=submission.title,
-                url=submission.shortlink
-            )
-            embed.set_image(url=submission.url)
-            return await ctx.send(embed=embed)
-        except Exception as e:
-            print(e)
-            return
-
     @commands.command(name="yelp")
     async def yelp(self, ctx, category, *, location="New York City"):
         URL = "https://api.yelp.com/v3/businesses/search?"
@@ -518,6 +490,38 @@ class APICommands(commands.Cog):
                 embed.set_thumbnail(url=data["definitions"][i]["image_url"])
 
             await ctx.send(embed=embed)
+
+    @commands.command(name="reddit", aliases=["ah", "dh", "ph", "dank"])
+    async def reddit(self, ctx, subreddit: str = ""):
+        reddit = praw.Reddit(client_id=os.environ["REDDIT_CLIENT_ID"],
+                             client_secret=os.environ["REDDIT_CLIENT_SECRET"],
+                             user_agent="Jay Bot")
+
+        subreddit_dict = {
+            "ah": "accountinghumor",
+            "dh": "designershumor",
+            "ph": "programmerhumor",
+            "dank": "memes"
+        }
+
+        command = ctx.message.content[1:]
+
+        try:
+            selection = subreddit_dict[command]
+        except:
+            selection = subreddit
+
+        try:
+            submission = reddit.subreddit(selection).random()
+            embed = discord.Embed(
+                title=submission.title,
+                url=submission.shortlink
+            )
+            embed.set_image(url=submission.url)
+            return await ctx.send(embed=embed)
+        except Exception as e:
+            print(e)
+            return await ctx.send("Subreddit not found")
 
 
 def setup(bot):
