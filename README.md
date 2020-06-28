@@ -38,7 +38,7 @@ python bot.py
 
 ## Discord Commands
 
-A list of all Jay Bot Commands can be found through the .help command on the Discord platform
+A list of all Jay Bot Commands can be found by using the .help command on the Discord platform
 
 ```bash
 .help
@@ -65,8 +65,6 @@ A list of all Jay Bot Commands can be found through the .help command on the Dis
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
 
 ## License
 
