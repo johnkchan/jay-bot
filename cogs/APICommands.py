@@ -80,8 +80,11 @@ class APICommands(commands.Cog):
         embed.add_field(
             name="\uFEFF", value="\uFEFF", inline=True)
 
+        latitude = float(data['coord']['lat'])
+        longitude = float(data['coord']['lon'])
+
         embed.set_footer(
-            text=f"lat: {data['coord']['lat']} | lon: {data['coord']['lon']}")
+            text=f"lat: {latitude}{'N' if latitude > 0 else 'S'} | long: {longitude}{'W' if latitude < 0 else 'E'}")
 
         await ctx.send(embed=embed)
 
