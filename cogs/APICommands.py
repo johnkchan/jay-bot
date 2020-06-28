@@ -23,6 +23,7 @@ class APICommands(commands.Cog):
             r = requests.get(url=URL, params=PARAMS)
         except Exception as e:
             print(e)
+            return
 
         data = r.json()
 
@@ -103,6 +104,7 @@ class APICommands(commands.Cog):
             r = requests.get(url=URL, params=PARAMS)
         except Exception as e:
             print(e)
+            return
 
         data = r.json()
 
@@ -130,9 +132,9 @@ class APICommands(commands.Cog):
             embed.add_field(
                 name="imdb Votes", value=data["imdbVotes"], inline=True)
 
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send("Movie title not found")
+            return await ctx.send(embed=embed)
+
+        return await ctx.send("Movie title not found")
 
     @commands.command(name="urbandict", description="Jay Bot tells you the definition", aliases=["urban"], help="Shows urban dictionary results")
     async def urbandict(self, ctx, *, searchTerm):
@@ -161,21 +163,21 @@ class APICommands(commands.Cog):
         embed.add_field(
             name="Example", value=topResult["example"], inline=False)
 
-        await ctx.send(embed=embed)
+        return await ctx.send(embed=embed)
 
     @commands.command(name="funfact", description="Jay Bot tells you a fun fact", help="Shows random fun fact")
     async def funfact(self, ctx):
         URL = "https://uselessfacts.jsph.pl/random.json?language=en"
         r = requests.get(url=URL)
         data = r.json()
-        await ctx.send(data["text"])
+        return await ctx.send(data["text"])
 
     @commands.command(name="joke", description="Jay Bot tells you a joke", help="Shows random joke")
     async def joke(self, ctx):
         URL = "https://official-joke-api.appspot.com/random_joke"
         r = requests.get(url=URL)
         data = r.json()
-        await ctx.send(f"{data['setup']}\n> {data['punchline']}")
+        return await ctx.send(f"{data['setup']}\n> {data['punchline']}")
 
     @commands.command(name="translate", help="Shows translation")
     async def translate(self, ctx, *, text):
@@ -323,7 +325,7 @@ class APICommands(commands.Cog):
             embed.add_field(
                 name="Confidence", value=f"{confidence}", inline=True)
 
-            await ctx.send(embed=embed)
+            return await ctx.send(embed=embed)
 
     @commands.command(name="reddit", aliases=["ah", "dh", "ph", "dank"])
     async def reddit(self, ctx):
@@ -348,9 +350,10 @@ class APICommands(commands.Cog):
                 url=submission.shortlink
             )
             embed.set_image(url=submission.url)
-            msg = await ctx.send(embed=embed)
+            return await ctx.send(embed=embed)
         except Exception as e:
             print(e)
+            return
 
     @commands.command(name="yelp")
     async def yelp(self, ctx, category, *, location="New York City"):
@@ -367,6 +370,7 @@ class APICommands(commands.Cog):
             r = requests.get(url=URL, params=PARAMS, headers=HEADERS)
         except Exception as e:
             print(e)
+            return
 
         topResults = r.json()
 
@@ -474,7 +478,7 @@ class APICommands(commands.Cog):
             except:
                 embed.set_image(url=business["photos"][0])
 
-        await ctx.send(embed=embed)
+        return await ctx.send(embed=embed)
 
     @commands.command(name="dictionary", aliases=["dict"])
     async def reddit(self, ctx, word):
