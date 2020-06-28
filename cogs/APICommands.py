@@ -301,6 +301,10 @@ class APICommands(commands.Cog):
         pronounciation = translator.translate(
             text, dest=language).pronunciation
 
+        if outputLanguage == "zh-cn":
+            pronounciation = translator.translate(
+                translation, dest="zh-cn").pronunciation
+
         if translation:
 
             embed = discord.Embed(
