@@ -35,7 +35,7 @@ class APICommands(commands.Cog):
         command = ctx.message.content
 
         #  Should return temperature in Celsius if user specifies weatherc command
-        units = "metric" ".weatherc" in command else "imperial"
+        units = "metric" if ".weatherc" in command else "imperial"
         scale = "C" if ".weatherc" in command else "F"
         speed = "mps" if ".weatherc" in command else "mph"
 
