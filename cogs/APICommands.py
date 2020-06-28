@@ -513,11 +513,21 @@ class APICommands(commands.Cog):
 
         try:
             submission = reddit.subreddit(selection).random()
+            print(dir(submission))
             embed = discord.Embed(
                 title=submission.title,
-                url=submission.shortlink
+                url=submission.shortlink,
+                description=submission.selftext
             )
+
+            embed.add_field(
+                name="👍", value=submission.score, inline=True)
+
             embed.set_image(url=submission.url)
+
+            embed.set_footer(
+                text=f"/r/{submission.subreddit.display_name}")
+
             return await ctx.send(embed=embed)
         except Exception as e:
             print(e)

@@ -68,7 +68,7 @@ class RandomCommands(commands.Cog):
         randomPrompt = random.choice(list(prompts))
         randomPromptAnswer = prompts[randomPrompt]
         await ctx.send(randomPrompt.title())
-        await ctx.send(f"answer: ||{randomPromptAnswer}||")
+        await ctx.send(f"Answer: ||{randomPromptAnswer}||")
         return
 
 
