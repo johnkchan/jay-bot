@@ -60,7 +60,8 @@ class APICommands(commands.Cog):
 
         embed = discord.Embed(
             title=data["name"],
-            description=f"[{latitude}{'N' if latitude > 0 else 'S'},{longitude}{'W' if latitude < 0 else 'E'}](https://www.google.com/maps/search/{latitude},{longitude}/)"
+            description=f"[{latitude}{'N' if latitude > 0 else 'S'},{longitude}{'W' if latitude < 0 else 'E'}](https://www.google.com/maps/search/{latitude},{longitude}/)",
+            colour=discord.Colour.blue()
         )
 
         embed.add_field(
@@ -90,6 +91,9 @@ class APICommands(commands.Cog):
             name="Sunset", value=sunset.strftime('%I:%M %p'), inline=True)
         embed.add_field(
             name="\uFEFF", value="\uFEFF", inline=True)
+
+        embed.set_thumbnail(
+            url=f"http://openweathermap.org/img/wn/{data['weather'][0]['icon']}@2x.png")
 
         return await ctx.send(embed=embed)
 
