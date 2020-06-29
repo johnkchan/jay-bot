@@ -355,7 +355,7 @@ class APICommands(commands.Cog):
         HEADERS = {"Authorization": f"bearer {os.getenv('YELP_API_KEY')}"}
 
         PARAMS = {"terms": "restaurant",
-                  "categories": category,
+                  "categories": category.lower(),
                   "location": location,
                   "limit": 5,
                   "price": "1, 2"}
