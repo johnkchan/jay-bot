@@ -368,7 +368,7 @@ class APICommands(commands.Cog):
 
         topResults = r.json()
 
-        await ctx.send(f"Top {PARAMS['limit']} Results for '{category.title()}' in {location.title()}")
+        await ctx.send(f"Top {PARAMS['limit']} results for '{category.title()}' in {location.title()}")
 
         for business in topResults["businesses"]:
             embed = discord.Embed(
