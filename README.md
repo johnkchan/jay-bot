@@ -20,6 +20,7 @@ touch .env
 
 ## API Directory
 
+- [Advice Slip API](https://api.adviceslip.com/)
 - [GIPHY](https://developers.giphy.com/)
 - [Official-Joke-API](https://official-joke-api.appspot.com/random_joke)
 - [Open Movie Database](http://www.omdbapi.com/)

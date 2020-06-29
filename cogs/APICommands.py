@@ -12,6 +12,21 @@ class APICommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.command(name="advice")
+    async def advice(self, ctx):
+        URL = "https://api.adviceslip.com/advice"
+
+        try:
+            r = requests.get(url=URL)
+        except Exception as e:
+            print(e)
+            return
+
+        advice = r.json()
+
+        if advice:
+            return await ctx.send(advice["slip"]["advice"])
+
     @commands.command(name="gif", description="It's so fluffy!")
     async def gif(self, ctx, *, searchTerm: str):
         URL = "http://api.giphy.com/v1/gifs/random?"
