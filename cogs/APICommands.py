@@ -526,7 +526,11 @@ class APICommands(commands.Cog):
             return await ctx.send(embed=embed)
         except Exception as e:
             print(e)
-            return await ctx.send("Subreddit not found")
+            if "403" in str(e):
+                return await ctx.send("Subreddit is private")
+            if "404" in str(e):
+                return await ctx.send("Subreddit not found")
+            return await ctx.send("Subreddit not supported")
 
     @commands.command(name="dictionary", aliases=["dict"])
     async def dictionary(self, ctx, word: str):
