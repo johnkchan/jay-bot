@@ -23,6 +23,7 @@ touch .env
 - [Advice Slip API](https://api.adviceslip.com/)
 - [GIPHY](https://developers.giphy.com/)
 - [Official-Joke-API](https://official-joke-api.appspot.com/random_joke)
+- [News API](https://newsapi.org/docs/get-started)
 - [Open Movie Database](http://www.omdbapi.com/)
 - [Open Weather Map](https://openweathermap.org/api)
 - [OwlBot Dictionary API](https://owlbot.info/)

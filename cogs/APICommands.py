@@ -569,6 +569,36 @@ class APICommands(commands.Cog):
 
             await ctx.send(embed=embed)
 
+    @commands.command(name="news")
+    async def news(self, ctx, articleCount=5):
+        URL = "https://newsapi.org/v2/top-headlines?country=us&apiKey=45fa0b12ee1e44fb845abb3583583416"
+
+        PARAMS = {"apiKey": os.getenv("NEWS_API_KEY"),
+                  "country": "us", }
+
+        try:
+            r = requests.get(url=URL)
+        except Exception as e:
+            print(e)
+            return
+
+        data = r.json()
+        length = articleCount if data["totalResults"] >= articleCount else data["totalResults"]
+
+        for i in range(length):
+            article = data["articles"][i]
+
+            embed = discord.Embed(
+                title=article["title"],
+                description=article['description'],
+                colour=discord.Colour.blue(),
+                url=article["url"]
+            )
+
+            embed.set_thumbnail(url=article["urlToImage"])
+
+            await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(APICommands(bot))
