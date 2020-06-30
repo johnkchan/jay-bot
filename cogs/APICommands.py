@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from googletrans import Translator
 from datetime import datetime
+from imgurpython import ImgurClient
 import random
 import praw
 import requests
@@ -602,6 +603,24 @@ class APICommands(commands.Cog):
             embed.set_thumbnail(url=article["urlToImage"])
 
             await ctx.send(embed=embed)
+
+    @commands.command(name="cyanide", aliases=["ch"])
+    async def cyanide(self, ctx):
+        client_id = os.getenv("IMGUR_CLIENT_ID")
+        client_secret = os.getenv("IMGUR_CLIENT_SECRET")
+        client = ImgurClient(client_id, client_secret)
+
+        galleries = ["Q28iX", "F3MUq", "Hs78vjZ",
+                     "4irAcqH", "XyPBv", "ytSSEEo"]
+        images = client.get_album_images(random.choice(galleries))
+
+        randomIdx = random.randrange(0, len(images))
+        randomComic = images[randomIdx].link
+
+        embed = discord.Embed()
+        embed.set_image(url=randomComic)
+
+        await ctx.send(embed=embed)
 
 
 def setup(bot):

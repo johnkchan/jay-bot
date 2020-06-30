@@ -22,6 +22,7 @@ touch .env
 
 - [Advice Slip API](https://api.adviceslip.com/)
 - [GIPHY](https://developers.giphy.com/)
+- [Imgur](https://github.com/Imgur/imgurpython)
 - [Official-Joke-API](https://official-joke-api.appspot.com/random_joke)
 - [News API](https://newsapi.org/docs/get-started)
 - [Open Movie Database](http://www.omdbapi.com/)
