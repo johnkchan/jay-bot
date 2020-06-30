@@ -622,6 +622,26 @@ class APICommands(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(name="lovenstein", aliases=["mrl"])
+    async def cyanide(self, ctx):
+        client_id = os.getenv("IMGUR_CLIENT_ID")
+        client_secret = os.getenv("IMGUR_CLIENT_SECRET")
+        client = ImgurClient(client_id, client_secret)
+
+        galleries = ["6h7o9", "MhDJD", "Spqb6Oj", "Fm9cQ"]
+        images = client.get_album_images(random.choice(galleries))
+
+        randomIdx = random.randrange(0, len(images))
+        randomComic = images[randomIdx].link
+
+        embed = discord.Embed(
+            title="MrLovenstein",
+            url="https://www.mrlovenstein.com/"
+        )
+        embed.set_image(url=randomComic)
+
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(APICommands(bot))
