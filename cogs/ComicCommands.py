@@ -95,7 +95,7 @@ class ComicCommands(commands.Cog):
     @commands.command(name="xkcd")
     async def xkcd(self, ctx):
         randomComicNum = random.randrange(1, 2327)
-        URL = "https://xkcd.com/{randomComicNum}/info.0.json"
+        URL = f"https://xkcd.com/{randomComicNum}/info.0.json"
 
         try:
             r = requests.get(url=URL)

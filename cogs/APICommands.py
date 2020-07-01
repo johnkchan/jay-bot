@@ -170,6 +170,7 @@ class APICommands(commands.Cog):
 
         embed = discord.Embed(
             title=topResult["word"].title(),
+            colour=discord.Colour.blue(),
             url=topResult["permalink"]
         )
 
