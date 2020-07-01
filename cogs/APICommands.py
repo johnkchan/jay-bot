@@ -617,13 +617,17 @@ class APICommands(commands.Cog):
         randomIdx = random.randrange(0, len(images))
         randomComic = images[randomIdx].link
 
-        embed = discord.Embed()
+        embed = discord.Embed(
+            title="Cyanide & Happiness",
+            url="http://explosm.net/"
+        )
+
         embed.set_image(url=randomComic)
 
         await ctx.send(embed=embed)
 
     @commands.command(name="lovenstein", aliases=["mrl"])
-    async def cyanide(self, ctx):
+    async def lovenstein(self, ctx):
         client_id = os.getenv("IMGUR_CLIENT_ID")
         client_secret = os.getenv("IMGUR_CLIENT_SECRET")
         client = ImgurClient(client_id, client_secret)
