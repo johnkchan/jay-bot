@@ -486,7 +486,7 @@ class APICommands(commands.Cog):
 
         return await ctx.send(embed=embed)
 
-    @commands.command(name="reddit", aliases=["ah", "dh", "ph", "dank"])
+    @commands.command(name="reddit", aliases=["ah", "dh", "ph", "dank", "comic"])
     async def reddit(self, ctx, subreddit: str = "random"):
         reddit = praw.Reddit(client_id=os.environ["REDDIT_CLIENT_ID"],
                              client_secret=os.environ["REDDIT_CLIENT_SECRET"],
@@ -496,7 +496,8 @@ class APICommands(commands.Cog):
             "ah": "accountinghumor",
             "dh": "designershumor",
             "ph": "programmerhumor",
-            "dank": "memes"
+            "dank": "memes",
+            "comic": "webcomics"
         }
 
         command = ctx.message.content[1:]

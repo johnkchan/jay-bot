@@ -57,7 +57,7 @@ class ComicCommands(commands.Cog):
         client_secret = os.getenv("IMGUR_CLIENT_SECRET")
         client = ImgurClient(client_id, client_secret)
 
-        galleries = ["KQELY", "aNDTM", "MJBPd"]
+        galleries = ["KQELY", "MJBPd"]
         images = client.get_album_images(random.choice(galleries))
 
         randomIdx = random.randrange(0, len(images))
