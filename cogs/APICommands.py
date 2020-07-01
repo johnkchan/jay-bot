@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 from googletrans import Translator
 from datetime import datetime
-from imgurpython import ImgurClient
 import random
 import praw
 import requests

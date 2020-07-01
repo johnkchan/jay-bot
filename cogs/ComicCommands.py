@@ -31,6 +31,26 @@ class ComicCommands(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(name="loading", aliases=["la"])
+    async def loading(self, ctx):
+        client_id = os.getenv("IMGUR_CLIENT_ID")
+        client_secret = os.getenv("IMGUR_CLIENT_SECRET")
+        client = ImgurClient(client_id, client_secret)
+
+        galleries = ["eqog8N3", "V4983", "nk7dK", "J5hdR"]
+        images = client.get_album_images(random.choice(galleries))
+
+        randomIdx = random.randrange(0, len(images))
+        randomComic = images[randomIdx].link
+
+        embed = discord.Embed(
+            title="Loading Artist",
+            url="https://loadingartist.com/"
+        )
+        embed.set_image(url=randomComic)
+
+        await ctx.send(embed=embed)
+
     @commands.command(name="lovenstein", aliases=["mrl"])
     async def lovenstein(self, ctx):
         client_id = os.getenv("IMGUR_CLIENT_ID")
