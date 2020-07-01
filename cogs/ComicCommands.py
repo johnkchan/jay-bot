@@ -107,7 +107,8 @@ class ComicCommands(commands.Cog):
 
         embed = discord.Embed(
             title=comic["title"],
-            description=comic["alt"]
+            description=comic["alt"],
+            url=f"https://xkcd.com/{comic['num']}/"
         )
 
         embed.set_image(url=comic["img"])
