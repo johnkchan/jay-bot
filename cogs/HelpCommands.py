@@ -15,7 +15,7 @@ class HelpCommands(commands.Cog):
         embed.add_field(
             name='API', value="`advice` `dictionary` `funfact` `gif` `joke` `movie` `news` `reddit` `translate` `urbandict` `yelp` `weather`", inline=False)
         embed.add_field(
-            name='Comics', value="`cyanide` `lovenstein` `owlturd`", inline=False)
+            name='Comics', value="`cyanide` `loading` `lovenstein` `owlturd` `xkcd`", inline=False)
         embed.add_field(
             name='General', value="`ping` `poll` `stats`", inline=False)
         embed.add_field(

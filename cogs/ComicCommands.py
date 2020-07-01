@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from imgurpython import ImgurClient
+import requests
 import random
 import os
 
@@ -88,6 +89,29 @@ class ComicCommands(commands.Cog):
             url="https://www.gocomics.com/shen-comix"
         )
         embed.set_image(url=randomComic)
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="xkcd")
+    async def xkcd(self, ctx):
+        randomComicNum = random.randrange(1, 2327)
+        URL = "https://xkcd.com/{randomComicNum}/info.0.json"
+
+        try:
+            r = requests.get(url=URL)
+        except Exception as e:
+            print(e)
+            return
+
+        comic = r.json()
+
+        embed = discord.Embed(
+            title=comic["title"],
+            description=comic["alt"]
+        )
+
+        embed.set_image(url=comic["img"])
+        embed.set_footer(text=f"xkcd comic #{comic['num']}")
 
         await ctx.send(embed=embed)
 
