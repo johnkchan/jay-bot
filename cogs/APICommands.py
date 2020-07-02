@@ -125,31 +125,39 @@ class APICommands(commands.Cog):
             print(e)
             return
 
-        data = r.json()
+        movie = r.json()
 
-        if data["Response"] == "True":
+        if movie["Response"] == "True":
             embed = discord.Embed(
-                title=data["Title"],
-                url=f"https://www.imdb.com/title/{data['imdbID']}"
+                title=movie["Title"],
+                description=movie["Plot"],
+                colour=discord.Colour.blue(),
+                url=f"https://www.imdb.com/title/{movie['imdbID']}"
             )
 
-            embed.set_thumbnail(url=data["Poster"])
             embed.add_field(
-                name="Plot", value=data["Plot"], inline=False)
+                name="Released", value=movie["Released"], inline=True)
             embed.add_field(
-                name="Genre", value=data["Genre"], inline=False)
+                name="Runtime", value=movie["Runtime"], inline=True)
             embed.add_field(
-                name="Director", value=data["Director"], inline=False)
-            embed.add_field(name="Actors", value=data["Actors"], inline=False)
-            if data["Awards"] != "N/A":
+                name="Rated", value=movie["Rated"], inline=True)
+
+            embed.add_field(
+                name="Genre", value=movie["Genre"], inline=False)
+            embed.add_field(
+                name="Director", value=movie["Director"], inline=False)
+            embed.add_field(name="Actors", value=movie["Actors"], inline=False)
+            if movie["Awards"] != "N/A":
                 embed.add_field(
-                    name="Awards", value=data["Awards"], inline=False)
+                    name="Awards", value=movie["Awards"], inline=False)
             embed.add_field(
-                name="Metascore", value=data["Metascore"], inline=True)
+                name="Metascore", value=movie["Metascore"], inline=True)
             embed.add_field(
-                name="imdb Rating", value=data["imdbRating"], inline=True)
+                name="imdb Rating", value=movie["imdbRating"], inline=True)
             embed.add_field(
-                name="imdb Votes", value=data["imdbVotes"], inline=True)
+                name="imdb Votes", value=movie["imdbVotes"], inline=True)
+
+            embed.set_thumbnail(url=movie["Poster"])
 
             return await ctx.send(embed=embed)
 
