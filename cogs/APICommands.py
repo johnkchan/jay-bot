@@ -549,7 +549,8 @@ class APICommands(commands.Cog):
 
             try:
                 reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
-                return await self.reddit(ctx, subreddit)
+                if reaction and user:
+                    return await self.reddit(ctx, subreddit)
             except asyncio.TimeoutError:
                 # Timeout Occurred
                 return
