@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from googletrans import Translator
 from datetime import datetime
+import asyncio
 import random
 import praw
 import requests
@@ -511,15 +512,20 @@ class APICommands(commands.Cog):
         command = ctx.message.content[1:]
 
         try:
+            # Check if subreddit is in dictionary
             selection = subreddit_dict[command]
         except:
             selection = subreddit
 
         try:
+            # Return random submission from subreddit
             submission = reddit.subreddit(selection).random()
+
+            maxEmbedDescLen = 2048
             embed = discord.Embed(
                 title=submission.title,
-                description=submission.selftext,
+                description=submission.selftext if len(
+                    submission.selftext) < maxEmbedDescLen else submission.selftext[:maxEmbedDescLen - 3] + "...",
                 url=submission.shortlink
             )
 
@@ -528,12 +534,26 @@ class APICommands(commands.Cog):
             embed.add_field(
                 name="👍", value=submission.score, inline=True)
 
-            embed.set_image(url=submission.url)
+            # Check if valid png or jpg file before setting image for embed
+            if submission.url[-3:] in ["png", "jpg"]:
+                embed.set_image(url=submission.url)
 
             embed.set_footer(
                 text=f"/r/{submission.subreddit.display_name}")
 
-            return await ctx.send(embed=embed)
+            message = await ctx.send(embed=embed)
+            await message.add_reaction("🔄")
+
+            def check(reaction, user):
+                return user.name != self.bot.user.name and str(reaction.emoji) == "🔄"
+
+            try:
+                reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
+                await self.reddit(ctx, subreddit)
+            except asyncio.TimeoutError:
+                # Timeout Occurred
+                return
+
         except Exception as e:
             print(e)
             if "403" in str(e):
