@@ -550,6 +550,8 @@ class APICommands(commands.Cog):
             try:
                 reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
                 if reaction and user:
+                    await message.remove_reaction("🔄", user)
+                    await message.remove_reaction("🔄", self.bot.user)
                     return await self.reddit(ctx, subreddit)
             except asyncio.TimeoutError:
                 # Timeout Occurred
