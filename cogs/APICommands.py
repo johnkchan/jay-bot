@@ -555,6 +555,7 @@ class APICommands(commands.Cog):
                     return await self.reddit(ctx, subreddit)
             except asyncio.TimeoutError:
                 # Timeout Occurred
+                await message.remove_reaction("🔄", self.bot.user)
                 return
 
         except Exception as e:
