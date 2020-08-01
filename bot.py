@@ -1,11 +1,8 @@
 from discord.ext import commands, tasks
-from dotenv import load_dotenv
 import discord
 import os
 import re
 
-
-load_dotenv()
 
 client = commands.Bot(command_prefix=".")
 client.remove_command('help')
