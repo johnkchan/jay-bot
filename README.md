@@ -6,7 +6,7 @@ Jay Bot is an interactive bot that allows Discord users to retrieve the latest d
 
 ## Installation
 
-1. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install [requirements](./requirements.txt).
+1. Use the [pip](https://pip.pypa.io/en/stable/) package manager to install [requirements](./requirements.txt)
 
 ```bash
 pip install -r requirements.txt
