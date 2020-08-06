@@ -3,6 +3,8 @@
 Jay Bot interacts with Discord users through designated commands.
 Users can retrieve the latest information from the various API endpoints listed below.
 
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
 ## Installation
 
 1. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install [requirements](./requirements.txt).
