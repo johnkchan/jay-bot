@@ -1,7 +1,6 @@
-# Jay Bot for Discord
+# Jay Bot
 
-Jay Bot interacts with Discord users through designated commands.
-Users can retrieve the latest information from the various API endpoints listed below.
+Jay Bot is an interactive bot that allows Discord users to retrieve the latest dataset from various API providers through designated commands.
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
