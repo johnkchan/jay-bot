@@ -24,7 +24,7 @@ touch .env
 - [Advice Slip API](https://api.adviceslip.com/)
 - [GIPHY](https://developers.giphy.com/)
 - [Imgur](https://github.com/Imgur/imgurpython)
-- [Official-Joke-API](https://official-joke-api.appspot.com/random_joke)
+- [Official Joke API](https://official-joke-api.appspot.com/random_joke)
 - [News API](https://newsapi.org/docs/get-started)
 - [Open Movie Database](http://www.omdbapi.com/)
 - [Open Weather Map](https://openweathermap.org/api)
@@ -52,7 +52,8 @@ A list of all Jay Bot Commands can be found by using the .help command on the Di
 
 `.dictionary <searchTerm>`
 
-![alt text](https://i.imgur.com/v64imOS.gif)
+<!-- ![alt text](https://i.imgur.com/v64imOS.gif) -->
+<img src="https://i.imgur.com/v64imOS.gif" width="450" />
 
 `.reddit <subreddit>`
 
