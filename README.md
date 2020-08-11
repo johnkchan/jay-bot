@@ -52,23 +52,23 @@ A list of all Jay Bot Commands can be found by using the .help command on the Di
 
 `.dictionary <searchTerm>`
 
-![alt text](https://imgur.com/v64imOS "Dictionary Command Example")
+![alt text](https://i.imgur.com/v64imOS.gifv)
 
 `.reddit <subreddit>`
 
-![alt text](https://imgur.com/bn9DMzN "Reddit Command Example")
+![alt text](https://i.imgur.com/bn9DMzN.gifv)
 
 `.translate <searchTerm>`
 
-![alt text](https://imgur.com/sJBDwt1 "Translate Command Example")
+![alt text](https://i.imgur.com/sJBDwt1.gifv)
 
 `.weather <location>`
 
-![alt text](https://imgur.com/D8V7F4Z "Open Weather API Command Example")
+![alt text](https://i.imgur.com/D8V7F4Z.gifv)
 
 `.yelp <category> <location>`
 
-![alt text](https://imgur.com/PsZvMhs "Yelp Fusion API Command Example")
+![alt text](https://i.imgur.com/PsZvMhs.gifv)
 
 ## Contributing
 
