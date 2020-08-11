@@ -12,7 +12,7 @@ Jay Bot is an interactive bot that allows Discord users to retrieve the latest d
 pip install -r requirements.txt
 ```
 
-2. Request API access from the below [API](##API) providers
+2. Request API access from the below [API](#API) providers
 3. Create a .env file to store granted API keys as environment variables
 
 ```bash
@@ -52,19 +52,23 @@ A list of all Jay Bot Commands can be found by using the .help command on the Di
 
 `.dictionary <searchTerm>`
 
-![alt text](https://i.imgur.com/wAQ4OJM.png "Dictionary Command Example")
+![alt text](https://imgur.com/v64imOS "Dictionary Command Example")
 
-`.yelp <category> <location>`
+`.reddit <subreddit>`
 
-![alt text](https://i.imgur.com/lG8Ly7Y.png "Yelp Fusion API Command Example")
-
-`.weather <location>`
-
-![alt text](https://i.imgur.com/uA2uZM7.png "Open Weather API Command Example")
+![alt text](https://imgur.com/bn9DMzN "Reddit Command Example")
 
 `.translate <searchTerm>`
 
-![alt text](https://i.imgur.com/7U79sgM.png "Translate Command Example")
+![alt text](https://imgur.com/sJBDwt1 "Translate Command Example")
+
+`.weather <location>`
+
+![alt text](https://imgur.com/D8V7F4Z "Open Weather API Command Example")
+
+`.yelp <category> <location>`
+
+![alt text](https://imgur.com/PsZvMhs "Yelp Fusion API Command Example")
 
 ## Contributing
 
