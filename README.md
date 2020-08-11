@@ -50,26 +50,25 @@ A list of all Jay Bot Commands can be found by using the .help command on the Di
 
 ## Command Examples
 
-`.dictionary <searchTerm>`
+`.dictionary <search-term>`
 
-<!-- ![alt text](https://i.imgur.com/v64imOS.gif) -->
 <img src="https://i.imgur.com/v64imOS.gif" width="450" />
 
 `.reddit <subreddit>`
 
-![alt text](https://i.imgur.com/bn9DMzN.gif)
+<img src="https://i.imgur.com/bn9DMzN.gif" width="450" />
 
-`.translate <searchTerm>`
+`.translate <search-term>`
 
-![alt text](https://i.imgur.com/sJBDwt1.gif)
+<img src="https://i.imgur.com/sJBDwt1.gif" width="450" />
 
 `.weather <location>`
 
-![alt text](https://i.imgur.com/D8V7F4Z.gif)
+<img src="https://i.imgur.com/D8V7F4Z.gif" width="450" />
 
 `.yelp <category> <location>`
 
-![alt text](https://i.imgur.com/PsZvMhs.gif)
+<img src="https://i.imgur.com/PsZvMhs.gif" width="450" />
 
 ## Contributing
 
