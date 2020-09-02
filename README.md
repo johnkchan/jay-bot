@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ```
 
 2. Request API access from the below [API](#API) providers
-3. Create a .env file to store granted API keys as environment variables
+3. Create a `.env` file to store granted API keys as environment variables
 
 ```bash
 touch .env
