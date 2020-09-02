@@ -45,7 +45,7 @@ class RandomCommands(commands.Cog):
                      "Yes",
                      "Yes - definitely",
                      "You may rely on it"]
-        return await ctx.send(random.choice(responses))
+        return await ctx.send(f"🎱 {random.choice(responses)}")
 
     @commands.command(name="teams", description="Jay Bot randomizes team members")
     async def teams(self, ctx, *, members):
@@ -61,7 +61,7 @@ class RandomCommands(commands.Cog):
             i += 1
             i %= 2
 
-        return await ctx.send(f"Team A: {delimiter.join(teams[0])}\nTeam B: {delimiter.join(teams[1])}")
+        return await ctx.send(f"Team 🅰️: {delimiter.join(teams[0])}\nTeam 🅱️: {delimiter.join(teams[1])}")
 
     @commands.command(name="madgab", aliases=["mg"])
     async def madgab(self, ctx):
