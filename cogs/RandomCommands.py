@@ -14,11 +14,11 @@ class RandomCommands(commands.Cog):
     @commands.command(name="roll", description="Jay Bot rolls a dice")
     async def roll(self, ctx, amount=1):
         if amount == 1:
-            return await ctx.send(f"You rolled a {random.randrange(1, 7)}")
+            return await ctx.send(f"🎲 You rolled a {random.randrange(1, 7)}")
 
         rolls = [random.randrange(1, 7) for _ in range(amount)]
         concatenation = ", ".join(map(str, rolls))
-        return await ctx.send(f"You rolled {concatenation} = {sum(rolls)}.")
+        return await ctx.send(f"🎲 You rolled {concatenation} = {sum(rolls)}.")
 
     @commands.command(name="percent", description="Jay Bot gives you a percent")
     async def percent(self, ctx, *, question=""):
@@ -55,21 +55,20 @@ class RandomCommands(commands.Cog):
 
         i = 0
         while members:
-            randInt = random.randrange(0, len(members))
-            member = members.pop(randInt)
+            rand_int = random.randrange(0, len(members))
+            member = members.pop(rand_int)
             teams[i].append(member)
             i += 1
             i %= 2
 
-        return await ctx.send(f"Team 🅰️: {delimiter.join(teams[0])}\nTeam 🅱️: {delimiter.join(teams[1])}")
+        return await ctx.send(f"Team A: {delimiter.join(teams[0])}\nTeam B: {delimiter.join(teams[1])}")
 
     @commands.command(name="madgab", aliases=["mg"])
     async def madgab(self, ctx):
-        randomPrompt = random.choice(list(prompts))
-        randomPromptAnswer = prompts[randomPrompt]
-        await ctx.send(randomPrompt.title())
-        await ctx.send(f"Answer: ||{randomPromptAnswer}||")
-        return
+        random_prompt = random.choice(list(prompts))
+        random_prompt_answer = prompts[random_prompt]
+        await ctx.send(random_prompt.title())
+        return await ctx.send(f"Answer: ||{random_prompt_answer}||")
 
 
 def setup(bot):

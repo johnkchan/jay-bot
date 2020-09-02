@@ -175,22 +175,22 @@ class APICommands(commands.Cog):
             print(e)
 
         data = r.json()
-        topResult = data["list"][0]
+        top_result = data["list"][0]
 
         embed = discord.Embed(
-            title=topResult["word"].title(),
+            title=top_result["word"].title(),
             colour=discord.Colour.blue(),
-            url=topResult["permalink"]
+            url=top_result["permalink"]
         )
 
         embed.set_thumbnail(
             url="https://img.pngio.com/urban-dictionary-definition-for-your-fave-urban-dictionary-png-670_315.png")
         embed.add_field(
-            name="Author", value=topResult["author"], inline=False)
+            name="Author", value=top_result["author"], inline=False)
         embed.add_field(
-            name="Definition", value=topResult["definition"], inline=False)
+            name="Definition", value=top_result["definition"], inline=False)
         embed.add_field(
-            name="Example", value=topResult["example"], inline=False)
+            name="Example", value=top_result["example"], inline=False)
 
         return await ctx.send(embed=embed)
 
@@ -326,14 +326,14 @@ class APICommands(commands.Cog):
         language = detection.lang.lower()
         confidence = detection.confidence
 
-        outputLanguage = "zh-cn" if language == "en" else "en"
-        output = translator.translate(text, dest=outputLanguage)
+        output_language = "zh-cn" if language == "en" else "en"
+        output = translator.translate(text, dest=output_language)
         translation = output.text
-        pronounciation = translator.translate(
+        pronunciation = translator.translate(
             text, dest=language).pronunciation
 
-        if outputLanguage == "zh-cn":
-            pronounciation = translator.translate(
+        if output_language == "zh-cn":
+            pronunciation = translator.translate(
                 translation, dest="zh-cn").pronunciation
 
         if translation:
@@ -345,9 +345,9 @@ class APICommands(commands.Cog):
             embed.add_field(
                 name="Translation", value=translation, inline=False)
 
-            if pronounciation:
+            if pronunciation:
                 embed.add_field(
-                    name="Pronounciation", value=pronounciation, inline=False)
+                    name="Pronounciation", value=pronunciation, inline=False)
 
             embed.add_field(
                 name="Detected", value=f"{LANGUAGES[language].title()}", inline=True)
@@ -376,11 +376,11 @@ class APICommands(commands.Cog):
             print(e)
             return
 
-        topResults = r.json()
+        top_results = r.json()
 
         await ctx.send(f"Top {PARAMS['limit']} results for '{category.title()}' in {location.title()}")
 
-        for business in topResults["businesses"]:
+        for business in top_results["businesses"]:
             embed = discord.Embed(
                 title=business["name"],
                 description=", ".join([i["title"]
@@ -463,26 +463,26 @@ class APICommands(commands.Cog):
         embed.add_field(name="Pickup?",
                         value="✅" if "pickup" in business["transactions"] else "❌", inline=True)
 
-        operationHours = {0: ["Monday", "Closed"],
-                          1: ["Tuesday", "Closed"],
-                          2: ["Wednesday", "Closed"],
-                          3: ["Thursday", "Closed"],
-                          4: ["Friday", "Closed"],
-                          5: ["Saturday", "Closed"],
-                          6: ["Sunday", "Closed"]}
+        operation_hours = {0: ["Monday", "Closed"],
+                           1: ["Tuesday", "Closed"],
+                           2: ["Wednesday", "Closed"],
+                           3: ["Thursday", "Closed"],
+                           4: ["Friday", "Closed"],
+                           5: ["Saturday", "Closed"],
+                           6: ["Sunday", "Closed"]}
 
         # Update operationHours dictionary with startTime and endTime
         for weekday in business["hours"][0]["open"]:
             # Convert 24 Hour Format into 12 Hour Format
-            openingHour = datetime.strptime(
+            opening_hour = datetime.strptime(
                 weekday['start'], "%H%M").strftime("%I:%M %p")
-            closingHour = datetime.strptime(
+            closing_hour = datetime.strptime(
                 weekday['end'], "%H%M").strftime("%I:%M %p")
-            operationHours[weekday["day"]
-                           ][1] = f"{openingHour} - {closingHour}"
+            operation_hours[weekday["day"]
+                            ][1] = f"{opening_hour} - {closing_hour}"
 
         embed.add_field(name="Hours", value="\n".join(
-            [f"{value[0]}: {value[1]}" for key, value in operationHours.items()]), inline=False)
+            [f"{value[0]}: {value[1]}" for key, value in operation_hours.items()]), inline=False)
         embed.add_field(name="Is Open Now?",
                         value="✅" if business["hours"][0]["is_open_now"] else "❌", inline=False)
 
@@ -514,18 +514,18 @@ class APICommands(commands.Cog):
         try:
             # Check if subreddit is in dictionary
             selection = subreddit_dict[command]
-        except:
+        except KeyError:
             selection = subreddit
 
         try:
             # Return random submission from subreddit
             submission = reddit.subreddit(selection).random()
 
-            maxEmbedDescLen = 2048
+            max_embed_desc_len = 2048
             embed = discord.Embed(
                 title=submission.title,
                 description=submission.selftext if len(
-                    submission.selftext) < maxEmbedDescLen else submission.selftext[:maxEmbedDescLen - 3] + "...",
+                    submission.selftext) < max_embed_desc_len else submission.selftext[:max_embed_desc_len - 3] + "...",
                 url=submission.shortlink
             )
 
@@ -593,7 +593,7 @@ class APICommands(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command(name="news")
-    async def news(self, ctx, articleCount=5):
+    async def news(self, ctx, article_count=5):
         URL = "https://newsapi.org/v2/top-headlines?country=us&apiKey=45fa0b12ee1e44fb845abb3583583416"
 
         PARAMS = {"apiKey": os.getenv("NEWS_API_KEY"),
@@ -606,7 +606,7 @@ class APICommands(commands.Cog):
             return
 
         data = r.json()
-        length = articleCount if data["totalResults"] >= articleCount else data["totalResults"]
+        length = article_count if data["totalResults"] >= article_count else data["totalResults"]
 
         for i in range(length):
             article = data["articles"][i]

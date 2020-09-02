@@ -20,15 +20,15 @@ class ComicCommands(commands.Cog):
                      "4irAcqH", "XyPBv", "ytSSEEo"]
         images = client.get_album_images(random.choice(galleries))
 
-        randomIdx = random.randrange(0, len(images))
-        randomComic = images[randomIdx].link
+        random_idx = random.randrange(0, len(images))
+        random_comic = images[random_idx].link
 
         embed = discord.Embed(
             title="Cyanide & Happiness",
             url="http://explosm.net/"
         )
 
-        embed.set_image(url=randomComic)
+        embed.set_image(url=random_comic)
 
         await ctx.send(embed=embed)
 
@@ -41,14 +41,14 @@ class ComicCommands(commands.Cog):
         galleries = ["eqog8N3", "V4983", "nk7dK", "J5hdR"]
         images = client.get_album_images(random.choice(galleries))
 
-        randomIdx = random.randrange(0, len(images))
-        randomComic = images[randomIdx].link
+        random_idx = random.randrange(0, len(images))
+        random_comic = images[random_idx].link
 
         embed = discord.Embed(
             title="Loading Artist",
             url="https://loadingartist.com/"
         )
-        embed.set_image(url=randomComic)
+        embed.set_image(url=random_comic)
 
         await ctx.send(embed=embed)
 
@@ -61,14 +61,14 @@ class ComicCommands(commands.Cog):
         galleries = ["6h7o9", "MhDJD", "Spqb6Oj", "Fm9cQ"]
         images = client.get_album_images(random.choice(galleries))
 
-        randomIdx = random.randrange(0, len(images))
-        randomComic = images[randomIdx].link
+        random_idx = random.randrange(0, len(images))
+        random_comic = images[random_idx].link
 
         embed = discord.Embed(
             title="MrLovenstein",
             url="https://www.mrlovenstein.com/"
         )
-        embed.set_image(url=randomComic)
+        embed.set_image(url=random_comic)
 
         await ctx.send(embed=embed)
 
@@ -81,21 +81,21 @@ class ComicCommands(commands.Cog):
         galleries = ["KQELY", "MJBPd"]
         images = client.get_album_images(random.choice(galleries))
 
-        randomIdx = random.randrange(0, len(images))
-        randomComic = images[randomIdx].link
+        random_idx = random.randrange(0, len(images))
+        random_comic = images[random_idx].link
 
         embed = discord.Embed(
             title="Owl Turd",
             url="https://www.gocomics.com/shen-comix"
         )
-        embed.set_image(url=randomComic)
+        embed.set_image(url=random_comic)
 
         await ctx.send(embed=embed)
 
     @commands.command(name="xkcd")
     async def xkcd(self, ctx):
-        randomComicNum = random.randrange(1, 2327)
-        URL = f"https://xkcd.com/{randomComicNum}/info.0.json"
+        random_comic_num = random.randrange(1, 2327)
+        URL = f"https://xkcd.com/{random_comic_num}/info.0.json"
 
         try:
             r = requests.get(url=URL)
