@@ -541,22 +541,7 @@ class APICommands(commands.Cog):
             embed.set_footer(
                 text=f"/r/{submission.subreddit.display_name}")
 
-            message = await ctx.send(embed=embed)
-            await message.add_reaction("🔄")
-
-            def check(reaction, user):
-                return user.name != self.bot.user.name and str(reaction.emoji) == "🔄"
-
-            try:
-                reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
-                if reaction and user:
-                    await message.remove_reaction("🔄", user)
-                    await message.remove_reaction("🔄", self.bot.user)
-                    return await self.reddit(ctx, subreddit)
-            except asyncio.TimeoutError:
-                # Timeout Occurred
-                await message.remove_reaction("🔄", self.bot.user)
-                return
+            await ctx.send(embed=embed)
 
         except Exception as e:
             print(e)
