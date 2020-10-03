@@ -114,11 +114,10 @@ class APICommands(commands.Cog):
         return await ctx.send(embed=embed)
 
     @commands.command(name="movie", description="Jay Bot tells you movie details", help="Shows movie details")
-    async def movie(self, ctx, *, movieTitle: str):
+    async def movie(self, ctx, *, movie_title: str):
         URL = "http://www.omdbapi.com/?"
-
         PARAMS = {"apikey": os.environ["OMDB_API_KEY"],
-                  "t": movieTitle}
+                  "t": movie_title}
 
         try:
             r = requests.get(url=URL, params=PARAMS)
@@ -128,41 +127,43 @@ class APICommands(commands.Cog):
 
         movie = r.json()
 
-        if movie["Response"] == "True":
-            embed = discord.Embed(
-                title=movie["Title"],
-                description=movie["Plot"],
-                colour=discord.Colour.blue(),
-                url=f"https://www.imdb.com/title/{movie['imdbID']}"
-            )
+        if movie["Response"] != "True":
+            return await ctx.send("Movie title not found")
 
-            embed.add_field(
-                name="Released", value=movie["Released"], inline=True)
-            embed.add_field(
-                name="Runtime", value=movie["Runtime"], inline=True)
-            embed.add_field(
-                name="Rated", value=movie["Rated"], inline=True)
+        embed = discord.Embed(
+            title=movie["Title"],
+            description=movie["Plot"],
+            colour=discord.Colour.blue(),
+            url=f"https://www.imdb.com/title/{movie['imdbID']}"
+        )
 
-            embed.add_field(
-                name="Genre", value=movie["Genre"], inline=False)
-            embed.add_field(
-                name="Director", value=movie["Director"], inline=False)
-            embed.add_field(name="Actors", value=movie["Actors"], inline=False)
-            if movie["Awards"] != "N/A":
-                embed.add_field(
-                    name="Awards", value=movie["Awards"], inline=False)
-            embed.add_field(
-                name="Metascore", value=movie["Metascore"], inline=True)
-            embed.add_field(
-                name="imdb Rating", value=movie["imdbRating"], inline=True)
-            embed.add_field(
-                name="imdb Votes", value=movie["imdbVotes"], inline=True)
+        embed.add_field(
+            name="Released", value=movie["Released"], inline=True)
+        embed.add_field(
+            name="Runtime", value=movie["Runtime"], inline=True)
+        embed.add_field(
+            name="Rated", value=movie["Rated"], inline=True)
 
-            embed.set_thumbnail(url=movie["Poster"])
+        embed.add_field(
+            name="Genre", value=movie["Genre"], inline=False)
+        embed.add_field(
+            name="Director", value=movie["Director"], inline=False)
+        embed.add_field(name="Actors", value=movie["Actors"], inline=False)
 
-            return await ctx.send(embed=embed)
+        if movie["Awards"] != "N/A":
+            embed.add_field(
+                name="Awards", value=movie["Awards"], inline=False)
 
-        return await ctx.send("Movie title not found")
+        embed.add_field(
+            name="Metascore", value=movie["Metascore"], inline=True)
+        embed.add_field(
+            name="IMDb Rating", value=movie["imdbRating"], inline=True)
+        embed.add_field(
+            name="IMDb Votes", value=movie["imdbVotes"], inline=True)
+
+        embed.set_thumbnail(url=movie["Poster"])
+
+        return await ctx.send(embed=embed)
 
     @commands.command(name="urbandict", description="Jay Bot tells you the definition", aliases=["urban"], help="Shows urban dictionary results")
     async def urbandict(self, ctx, *, searchTerm: str):
