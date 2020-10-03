@@ -29,11 +29,11 @@ class APICommands(commands.Cog):
             return await ctx.send(advice["slip"]["advice"])
 
     @commands.command(name="gif", description="It's so fluffy!")
-    async def gif(self, ctx, *, searchTerm: str):
+    async def gif(self, ctx, *, search_term: str):
         URL = "http://api.giphy.com/v1/gifs/random?"
 
         PARAMS = {"api_key": os.environ["GIPHY_API_KEY"],
-                  "tag": searchTerm}
+                  "tag": search_term}
 
         try:
             r = requests.get(url=URL, params=PARAMS)
@@ -165,10 +165,10 @@ class APICommands(commands.Cog):
 
         return await ctx.send(embed=embed)
 
-    @commands.command(name="urbandict", description="Jay Bot tells you the definition", aliases=["urban"], help="Shows urban dictionary results")
-    async def urbandict(self, ctx, *, searchTerm: str):
+    @commands.command(name="urbandictionary", description="Jay Bot tells you the definition", aliases=["urban", "urbandict"], help="Shows urban dictionary results")
+    async def urbandict(self, ctx, *, search_term: str):
         URL = "http://api.urbandictionary.com/v0/define?"
-        PARAMS = {"term": searchTerm}
+        PARAMS = {"term": search_term}
 
         try:
             r = requests.get(url=URL, params=PARAMS)
@@ -176,6 +176,10 @@ class APICommands(commands.Cog):
             print(e)
 
         data = r.json()
+
+        if not data["list"]:
+            return await ctx.send("Definition not found")
+
         top_result = data["list"][0]
 
         embed = discord.Embed(
