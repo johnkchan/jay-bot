@@ -605,7 +605,7 @@ class APICommands(commands.Cog):
                   "country": "us", }
 
         try:
-            r = requests.get(url=URL)
+            r = requests.get(url=URL, params=PARAMS)
         except Exception as e:
             print(e)
             return
@@ -628,7 +628,7 @@ class APICommands(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command(name="mal")
-    async def news(self, ctx, username):
+    async def news(self, ctx, username: str):
         URL = f"https://api.jikan.moe/v3/user/{username}/animelist/all"
 
         try:
@@ -638,6 +638,7 @@ class APICommands(commands.Cog):
             return
 
         data = r.json()
+        print(data)
 
         embed = discord.Embed(
             title=f"{username}'s Anime List",
