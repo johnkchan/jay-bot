@@ -638,7 +638,6 @@ class APICommands(commands.Cog):
             return
 
         data = r.json()
-        print(data)
 
         embed = discord.Embed(
             title=f"{username}'s Anime List",
@@ -646,17 +645,16 @@ class APICommands(commands.Cog):
             url=f"https://myanimelist.net/animelist/{username}"
         )
 
-        for anime in range(data.anime):
-            embed.add_field(
-                name="Title", value=f"[{anime.title}]({anime.url})", inline=True)
-            embed.add_field(
-                name="Status", value=anime.watching_status, inline=True)
-            embed.add_field(
-                name="Progress", value=f"{anime.watched_episodes}/{anime.total_episodes}"
-            )
+        # for anime in range(data.anime):
+        #     embed.add_field(
+        #         name="Title", value=f"[{anime.title}]({anime.url})", inline=True)
+        #     embed.add_field(
+        #         name="Status", value=anime.watching_status, inline=True)
+        #     embed.add_field(
+        #         name="Progress", value=f"{anime.watched_episodes}/{anime.total_episodes}")
 
-        embed.set_image(
-            url="https://image.myanimelist.net/ui/OK6W_koKDTOqqqLDbIoPAiC8a86sHufn_jOI-JGtoCQ")
+        # embed.set_image(
+        #     url="https://image.myanimelist.net/ui/OK6W_koKDTOqqqLDbIoPAiC8a86sHufn_jOI-JGtoCQ")
         embed.set_footer(text=f"MyAnimeList")
 
         await ctx.send(embed=embed)
