@@ -646,13 +646,12 @@ class APICommands(commands.Cog):
         )
 
         for anime in data["anime"]:
-            print(anime)
-        #     embed.add_field(
-        #         name="Title", value=f"[{anime.title}]({anime.url})", inline=True)
-        #     embed.add_field(
-        #         name="Status", value=anime.watching_status, inline=True)
-        #     embed.add_field(
-        #         name="Progress", value=f"{anime.watched_episodes}/{anime.total_episodes}",  inline=True)
+            embed.add_field(
+                name="Title", value=f"[{anime['title']}]({anime['url']})", inline=True)
+            embed.add_field(
+                name="Status", value=anime['watching_status'], inline=True)
+            embed.add_field(
+                name="Progress", value=f"{anime['watched_episodes']}/{anime['total_episodes']}",  inline=True)
 
         embed.set_thumbnail(
             url="https://image.myanimelist.net/ui/OK6W_koKDTOqqqLDbIoPAiC8a86sHufn_jOI-JGtoCQ")
