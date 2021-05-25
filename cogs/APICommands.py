@@ -628,7 +628,7 @@ class APICommands(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command(name="mal")
-    async def news(self, ctx, username: string):
+    async def news(self, ctx, username):
         URL = f"https://api.jikan.moe/v3/user/{username}/animelist/all"
 
         try:
