@@ -418,8 +418,8 @@ class APICommands(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command(name="yelpsearch")
-    async def yelpsearch(self, ctx, businessID):
-        URL = f"https://api.yelp.com/v3/businesses/{businessID}"
+    async def yelpsearch(self, ctx, business_id):
+        URL = f"https://api.yelp.com/v3/businesses/{business_id}"
         HEADERS = {"Authorization": f"bearer {os.getenv('YELP_API_KEY')}"}
 
         try:
@@ -599,7 +599,7 @@ class APICommands(commands.Cog):
 
     @commands.command(name="news")
     async def news(self, ctx, article_count=5):
-        URL = "https://newsapi.org/v2/top-headlines?country=us&apiKey=45fa0b12ee1e44fb845abb3583583416"
+        URL = "https://newsapi.org/v2/top-headlines?"
 
         PARAMS = {"apiKey": os.getenv("NEWS_API_KEY"),
                   "country": "us", }
@@ -626,6 +626,39 @@ class APICommands(commands.Cog):
             embed.set_thumbnail(url=article["urlToImage"])
 
             await ctx.send(embed=embed)
+
+    @commands.command(name="mal")
+    async def news(self, ctx, username: string):
+        URL = f"https://api.jikan.moe/v3/user/{username}/animelist/all"
+
+        try:
+            r = requests.get(url=URL)
+        except Exception as e:
+            print(e)
+            return
+
+        data = r.json()
+
+        embed = discord.Embed(
+            title=f"{username}'s Anime List",
+            description="All Anime",
+            url=f"https://myanimelist.net/animelist/{username}"
+        )
+
+        for anime in range(data.anime):
+            embed.add_field(
+                name="Title", value=f"[{anime.title}]({anime.url})", inline=True)
+            embed.add_field(
+                name="Status", value=anime.watching_status, inline=True)
+            embed.add_field(
+                name="Progress", value=f"{anime.watched_episodes}/{anime.total_episodes}"
+            )
+
+        embed.set_image(
+            url="https://image.myanimelist.net/ui/OK6W_koKDTOqqqLDbIoPAiC8a86sHufn_jOI-JGtoCQ")
+        embed.set_footer(text=f"MyAnimeList")
+
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
