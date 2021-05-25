@@ -645,9 +645,7 @@ class APICommands(commands.Cog):
             url=f"https://myanimelist.net/animelist/{username}",
         )
 
-        print(data.anime)
-
-        for anime in data.anime:
+        for anime in data["anime"]:
             print(anime)
         #     embed.add_field(
         #         name="Title", value=f"[{anime.title}]({anime.url})", inline=True)
