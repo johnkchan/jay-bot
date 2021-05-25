@@ -645,16 +645,16 @@ class APICommands(commands.Cog):
             url=f"https://myanimelist.net/animelist/{username}"
         )
 
-        for anime in range(data.anime):
-            embed.add_field(
-                name="Title", value=f"[{anime.title}]({anime.url})", inline=True)
-            embed.add_field(
-                name="Status", value=anime.watching_status, inline=True)
-            embed.add_field(
-                name="Progress", value=f"{anime.watched_episodes}/{anime.total_episodes}",  inline=True)
+        # for anime in range(data.anime):
+        #     embed.add_field(
+        #         name="Title", value=f"[{anime.title}]({anime.url})", inline=True)
+        #     embed.add_field(
+        #         name="Status", value=anime.watching_status, inline=True)
+        #     embed.add_field(
+        #         name="Progress", value=f"{anime.watched_episodes}/{anime.total_episodes}",  inline=True)
 
-        # embed.set_image(
-        #     url="https://image.myanimelist.net/ui/OK6W_koKDTOqqqLDbIoPAiC8a86sHufn_jOI-JGtoCQ")
+        embed.set_image(
+            url="https://image.myanimelist.net/ui/OK6W_koKDTOqqqLDbIoPAiC8a86sHufn_jOI-JGtoCQ")
         embed.set_footer(text=f"MyAnimeList")
 
         await ctx.send(embed=embed)
