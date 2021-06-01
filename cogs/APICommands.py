@@ -628,13 +628,12 @@ class APICommands(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command(name="mal")
-    async def news(self, ctx, username: str):
+    async def my_anime_list(self, ctx, username: str):
         URL = f"https://api.jikan.moe/v3/user/{username}/animelist/all"
 
         try:
             r = requests.get(url=URL)
-        except Exception as e:
-            print(e)
+        except Exception:
             return
 
         data = r.json()
@@ -645,13 +644,22 @@ class APICommands(commands.Cog):
             url=f"https://myanimelist.net/animelist/{username}",
         )
 
-        for anime in data["anime"]:
+        status_dict = {
+            1: "Watching",
+            2: 2,
+            3: 3,
+            4: 4,
+            5: 5,
+            6: 6
+        }
+
+        for idx, anime in enumerate(data["anime"]):
             embed.add_field(
-                name="Title", value=f"[{anime['title']}]({anime['url']})", inline=True)
+                name="Title" if idx == 0 else "", value=f"[{anime['title']}]({anime['url']})", inline=True)
             embed.add_field(
-                name="Status", value=anime['watching_status'], inline=True)
+                name="Status" if idx == 0 else "", value=status_dict[anime['watching_status']], inline=True)
             embed.add_field(
-                name="Progress", value=f"{anime['watched_episodes']}/{anime['total_episodes']}",  inline=True)
+                name="Progress" if idx == 0 else "", value=f"Eps {anime['watched_episodes']}/{anime['total_episodes']}",  inline=True)
 
         embed.set_thumbnail(
             url="https://image.myanimelist.net/ui/OK6W_koKDTOqqqLDbIoPAiC8a86sHufn_jOI-JGtoCQ")
